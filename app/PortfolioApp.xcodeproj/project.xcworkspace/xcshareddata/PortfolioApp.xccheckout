@@ -14,7 +14,7 @@
 		<string>github.com:petrvanblokland/XierpaThin.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>PortfolioApp/PortfolioApp.xcodeproj</string>
+	<string>app/PortfolioApp.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>1046DD95F2184B6515BB701F7979940F5AD070D3</key>
