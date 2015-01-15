@@ -8,7 +8,7 @@
 #
 # -----------------------------------------------------------------------------
 #
-#    WayFindingAppDelegate.py
+#    PortfolioAppDelegate.py
 #
 
 from AppKit import NSObject
@@ -19,7 +19,7 @@ from twisted.internet import reactor
 from twisted.web import server
 from wayfindingapp import WayFindingApp
 
-class WayFindingAppDelegate(NSObject):
+class PortfolioAppDelegate(NSObject):
     u"""
     Main delegate for WayFinding application.
     """
@@ -35,6 +35,6 @@ class WayFindingAppDelegate(NSObject):
         client = Client()
         client.app = WayFindingApp()
         site = server.Site(client)
-        reactor.interleave(AppHelper.callAfter) 
-        reactor.listenTCP(client.app.port, site) 
+        reactor.interleave(AppHelper.callAfter)
+        reactor.listenTCP(client.app.port, site)
 
