@@ -1,0 +1,7 @@
+/* C S S  F I L E */
+
+body {background-color: #F0F0F0; font-family: Verdana}
+
+div.page_Home div.myComponent {font-size: 1em; color: #202020;}
+
+div.page_Vroeger div.myComponent {font-size: 1em; color: #3030FF;}
