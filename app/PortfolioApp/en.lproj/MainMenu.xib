@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1050" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
@@ -14,10 +14,10 @@
         </customObject>
         <menu title="AMainMenu" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
-                <menuItem title="WayFinding" id="56">
-                    <menu key="submenu" title="WayFinding" systemMenu="apple" id="57">
+                <menuItem title="Portfolio" id="56">
+                    <menu key="submenu" title="Portfolio" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="About WayFinding" id="58">
+                            <menuItem title="About Portfolio" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
@@ -36,7 +36,7 @@
                             <menuItem isSeparatorItem="YES" id="144">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Hide WayFinding" keyEquivalent="h" id="134">
+                            <menuItem title="Hide Portfolio" keyEquivalent="h" id="134">
                                 <connections>
                                     <action selector="hide:" target="-1" id="367"/>
                                 </connections>
@@ -55,7 +55,7 @@
                             <menuItem isSeparatorItem="YES" id="149">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Quit WayFinding" keyEquivalent="q" id="136" userLabel="Quit WayFinding">
+                            <menuItem title="Quit Portfolio" keyEquivalent="q" id="136" userLabel="Quit WayFinding">
                                 <connections>
                                     <action selector="terminate:" target="-1" id="369"/>
                                 </connections>
@@ -254,100 +254,6 @@
                                         </menuItem>
                                     </items>
                                 </menu>
-                            </menuItem>
-                        </items>
-                    </menu>
-                </menuItem>
-                <menuItem title="Elements" id="7uc-H0-imE">
-                    <menu key="submenu" title="Elements" id="YDA-X1-ver">
-                        <items>
-                            <menuItem title="New Sign" tag="1000" keyEquivalent="n" id="YhX-ps-e42">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="addSign:" target="-1" id="NCL-5O-DRx"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="New Destination" tag="1001" keyEquivalent="b" id="FgM-Gr-zS8">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="add:" target="-1" id="Mec-es-zIt"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="New Route" tag="1003" keyEquivalent="m" id="Soe-BW-EIQ">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="add:" target="-1" id="Ps9-CN-noc"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
-                </menuItem>
-                <menuItem title="Filter" id="yB0-gB-IXz">
-                    <menu key="submenu" title="Filter" id="RP6-hE-2lN">
-                        <items>
-                            <menuItem title="Optional" tag="1000" keyEquivalent="1" id="Hhn-R2-l3R">
-                                <connections>
-                                    <action selector="filter:" target="-1" id="zUR-Lg-Bg4"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Current" tag="1001" keyEquivalent="2" id="HKt-Rn-kgy">
-                                <connections>
-                                    <action selector="filter:" target="-1" id="yN8-gg-BWM"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="On hold" tag="1002" keyEquivalent="3" id="EC1-YV-g5x">
-                                <connections>
-                                    <action selector="filter:" target="-1" id="56j-E9-9SV"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Planned" tag="1003" keyEquivalent="4" id="YIj-Im-96G">
-                                <connections>
-                                    <action selector="filter:" target="-1" id="TsD-Ha-TJP"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Deleted" tag="1004" keyEquivalent="5" id="FGO-bq-gNN">
-                                <connections>
-                                    <action selector="filter:" target="-1" id="o16-mr-6Di"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="biL-jD-7xK">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem title="Signs 1-1000" tag="1005" id="m8j-qf-Iua">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-Aw
-</string>
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="filterSignName:" target="-1" id="UkH-ne-yID"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Signs 1000-2000" tag="1006" id="ngt-sj-iFf">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-Aw
-</string>
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="filterSignName:" target="-1" id="chB-Qh-rdh"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Signs 2000-3000" tag="1007" id="xle-Sf-4Wj">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-Aw
-</string>
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="filterSignName:" target="-1" id="I8H-PQ-J6u"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Signs 3000-4000" tag="1008" id="Pa1-us-VLF">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-Aw
-</string>
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="filterSignName:" target="-1" id="C5R-mz-gCl"/>
-                                </connections>
                             </menuItem>
                         </items>
                     </menu>
@@ -583,46 +489,23 @@ Aw
                 </menuItem>
             </items>
         </menu>
-        <customObject id="373" userLabel="WayFindingAppDelegate" customClass="WayFindingAppDelegate"/>
+        <customObject id="373" userLabel="PortfolioAppDelegate" customClass="PortfolioAppDelegate"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="aYU-5v-5tt">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="163" y="199" width="1436" height="1023"/>
+            <rect key="contentRect" x="163" y="199" width="926" height="458"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="7EC-Kx-NtJ">
-                <rect key="frame" x="0.0" y="5" width="1436" height="1023"/>
+                <rect key="frame" x="0.0" y="6" width="926" height="458"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView id="Whb-OK-6Ku" customClass="WayFindingView">
-                        <rect key="frame" x="0.0" y="0.0" width="1436" height="1023"/>
+                    <customView id="Whb-OK-6Ku">
+                        <rect key="frame" x="0.0" y="-565" width="1436" height="1023"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </customView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="231" y="-11.5"/>
+            <point key="canvasLocation" x="-468" y="-777"/>
         </window>
-        <menuItem title="Planned" tag="1003" keyEquivalent="4" id="ksg-2q-bwf">
-            <connections>
-                <action selector="add:" target="-1" id="lnA-kx-xCH"/>
-            </connections>
-        </menuItem>
-        <menuItem title="Signs 1-1000" tag="1003" id="hii-kA-Msd">
-            <string key="keyEquivalent" base64-UTF8="YES">
-Aw
-</string>
-            <modifierMask key="keyEquivalentModifierMask"/>
-            <connections>
-                <action selector="add:" target="-1" id="Vae-a6-vg8"/>
-            </connections>
-        </menuItem>
-        <menuItem title="Signs 1-1000" tag="1003" id="pwe-KO-b38">
-            <string key="keyEquivalent" base64-UTF8="YES">
-Aw
-</string>
-            <modifierMask key="keyEquivalentModifierMask"/>
-            <connections>
-                <action selector="add:" target="-1" id="1Ab-QP-K3V"/>
-            </connections>
-        </menuItem>
     </objects>
 </document>

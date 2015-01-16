@@ -17,7 +17,7 @@ from PyObjCTools import AppHelper
 from client import Client
 from twisted.internet import reactor
 from twisted.web import server
-from wayfindingapp import WayFindingApp
+from portfolioapp import PortfolioApp
 
 class PortfolioAppDelegate(NSObject):
     u"""
@@ -33,7 +33,7 @@ class PortfolioAppDelegate(NSObject):
 
     def applicationDidFinishLaunching_(self, notification):
         client = Client()
-        client.app = WayFindingApp()
+        client.app = PortfolioApp()
         site = server.Site(client)
         reactor.interleave(AppHelper.callAfter)
         reactor.listenTCP(client.app.port, site)

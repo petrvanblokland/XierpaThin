@@ -25,7 +25,7 @@ setup(
     setup_requires=['py2app'],
     options=dict(py2app=dict(#iconfile='en.lproj/portfolio.icns',
                              includes=['lxml.etree', 'lxml._elementpath'],
-                             packages=['portfolio', 'xierpa3']
+                             packages=['xierpathin']
                              )
                  )
 )

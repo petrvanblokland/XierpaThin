@@ -8,8 +8,7 @@ reactor = install()
 
 # We need to import all classes used in nib files before running the
 # application.
-import WayFindingAppDelegate
-import WayFindingView
+import PortfolioAppDelegate
 
 import objc; objc.setVerbose(True)
 

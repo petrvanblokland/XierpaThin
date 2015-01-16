@@ -4,5 +4,5 @@
 #
 rm -r build dist # Removes build files and compiled application.
 python setup.py py2app --no-strip # Compiles again.
-killall WayFinding # Kills runnin application.
-./dist/WayFinding.app/Contents/MacOS/WayFinding # Calls application binary from the command line.
+killall Portfolio # Kills runnin application.
+./dist/Portfolio.app/Contents/MacOS/Portfolio # Calls application binary from the command line.

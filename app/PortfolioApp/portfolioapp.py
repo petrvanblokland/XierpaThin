@@ -9,17 +9,20 @@
 #
 #    wayfindingapp.py
 #
+
+import xierpathin
 from xierpathin.htmlbuilder import HtmlBuilder
+#from xierpathin.sassbuilder import SassBuilder
+#from xierpathin.cssbuilder import CssBuilder
 from xierpathin.transformer import TX
+#from xierpathin.website.website import Website
 
-import wayfinding
-from wayfinding.website.website import Website
-
-class WayFindingApp(object):
+class PortfolioApp(object):
     u"""
+    Wraps XierpaThin client for Twisted server.
     """
 
-    PORT = 8070
+    PORT = 8090
     URL = 'http://localhost:%d' % PORT
 
     def __init__(self):
@@ -28,17 +31,17 @@ class WayFindingApp(object):
         """
         self.port = self.PORT
         self.url = self.URL
-        self.website = Website(title='Wayfinding App')
+        #self.website = Website(title='Poftfolio App')
 
         # Update root paths
-        rootPath = TX.module2Path(wayfinding)
+        rootPath = TX.module2Path(xierpathin)
         HtmlBuilder.ROOT_PATH = rootPath
-        SassBuilder.ROOT_PATH = rootPath
-        CssBuilder.ROOT_PATH = rootPath
-
+        #SassBuilder.ROOT_PATH = rootPath
+        #CssBuilder.ROOT_PATH = rootPath
 
     def getSite(self):
-        return self.website
+        #return self.website
+        pass
 
     def handleRequest(self, httprequest, site):
         #self.addConsole(`httprequest` + ' ' + `site.e.form`)
