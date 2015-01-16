@@ -20,12 +20,12 @@ from setuptools import setup
 
 setup(
     app=['main.py'],
-    name="WayFinding",
-    data_files=['en.lproj', 'graphics/blueprint_amsterdam_cs.tif'],
+    name="Portfolio",
+    data_files=['en.lproj'],
     setup_requires=['py2app'],
-    options=dict(py2app=dict(iconfile='en.lproj/wayfinding.icns',
-                             includes=['lxml.etree', 'lxml._elementpath', 'pdflib_py'],
-                             packages=['wayfinding', 'xierpa3']
+    options=dict(py2app=dict(#iconfile='en.lproj/portfolio.icns',
+                             includes=['lxml.etree', 'lxml._elementpath'],
+                             packages=['portfolio', 'xierpa3']
                              )
                  )
 )
