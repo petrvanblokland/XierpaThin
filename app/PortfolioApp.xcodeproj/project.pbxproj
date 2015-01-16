@@ -12,7 +12,6 @@
 		CC5C3A561A69144000D89F9B /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A471A69144000D89F9B /* Credits.rtf */; };
 		CC5C3A571A69144000D89F9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A491A69144000D89F9B /* InfoPlist.strings */; };
 		CC5C3A581A69144000D89F9B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A4B1A69144000D89F9B /* MainMenu.xib */; };
-		CC5C3A591A69144000D89F9B /* wayfinding.icns in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A4D1A69144000D89F9B /* wayfinding.icns */; };
 		CC5C3A5A1A69144000D89F9B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A4F1A69144000D89F9B /* Info.plist */; };
 		CC5C3A5B1A69144000D89F9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5C3A501A69144000D89F9B /* main.m */; };
 		CC5C3A5C1A69144000D89F9B /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A511A69144000D89F9B /* main.py */; };
@@ -28,7 +27,6 @@
 		CC5C3A481A69144000D89F9B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = Credits.rtf; sourceTree = "<group>"; };
 		CC5C3A4A1A69144000D89F9B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		CC5C3A4C1A69144000D89F9B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainMenu.xib; sourceTree = "<group>"; };
-		CC5C3A4E1A69144000D89F9B /* en */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = en; path = wayfinding.icns; sourceTree = "<group>"; };
 		CC5C3A4F1A69144000D89F9B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC5C3A501A69144000D89F9B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CC5C3A511A69144000D89F9B /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 				CC5C3A471A69144000D89F9B /* Credits.rtf */,
 				CC5C3A491A69144000D89F9B /* InfoPlist.strings */,
 				CC5C3A4B1A69144000D89F9B /* MainMenu.xib */,
-				CC5C3A4D1A69144000D89F9B /* wayfinding.icns */,
 			);
 			path = en.lproj;
 			sourceTree = "<group>";
@@ -155,7 +152,6 @@
 				CC5C3A561A69144000D89F9B /* Credits.rtf in Resources */,
 				CC5C3A5D1A69144000D89F9B /* portfolioapp.py in Resources */,
 				CC5C3A5E1A69144000D89F9B /* PortfolioAppDelegate.py in Resources */,
-				CC5C3A591A69144000D89F9B /* wayfinding.icns in Resources */,
 				CC5C3A5F1A69144000D89F9B /* setup.py in Resources */,
 				CC5C3A581A69144000D89F9B /* MainMenu.xib in Resources */,
 			);
@@ -197,14 +193,6 @@
 				CC5C3A4C1A69144000D89F9B /* en */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		CC5C3A4D1A69144000D89F9B /* wayfinding.icns */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CC5C3A4E1A69144000D89F9B /* en */,
-			);
-			name = wayfinding.icns;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
