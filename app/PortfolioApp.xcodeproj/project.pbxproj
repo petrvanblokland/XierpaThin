@@ -7,20 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CC4785701A68422E00C9877D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC47856F1A68422E00C9877D /* AppDelegate.m */; };
-		CC4785721A68422E00C9877D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4785711A68422E00C9877D /* main.m */; };
-		CC4785741A68422E00C9877D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC4785731A68422E00C9877D /* Images.xcassets */; };
-		CC4785771A68422E00C9877D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC4785751A68422E00C9877D /* MainMenu.xib */; };
+		CC5C3A441A6913E800D89F9B /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC5C3A431A6913E800D89F9B /* libpython2.7.dylib */; };
+		CC5C3A551A69144000D89F9B /* client.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A451A69144000D89F9B /* client.py */; };
+		CC5C3A561A69144000D89F9B /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A471A69144000D89F9B /* Credits.rtf */; };
+		CC5C3A571A69144000D89F9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A491A69144000D89F9B /* InfoPlist.strings */; };
+		CC5C3A581A69144000D89F9B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A4B1A69144000D89F9B /* MainMenu.xib */; };
+		CC5C3A591A69144000D89F9B /* wayfinding.icns in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A4D1A69144000D89F9B /* wayfinding.icns */; };
+		CC5C3A5A1A69144000D89F9B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A4F1A69144000D89F9B /* Info.plist */; };
+		CC5C3A5B1A69144000D89F9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5C3A501A69144000D89F9B /* main.m */; };
+		CC5C3A5C1A69144000D89F9B /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A511A69144000D89F9B /* main.py */; };
+		CC5C3A5D1A69144000D89F9B /* portfolioapp.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A521A69144000D89F9B /* portfolioapp.py */; };
+		CC5C3A5E1A69144000D89F9B /* PortfolioAppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A531A69144000D89F9B /* PortfolioAppDelegate.py */; };
+		CC5C3A5F1A69144000D89F9B /* setup.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A541A69144000D89F9B /* setup.py */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CC4785691A68422E00C9877D /* PortfolioApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PortfolioApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC47856D1A68422E00C9877D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC47856E1A68422E00C9877D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		CC47856F1A68422E00C9877D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CC4785711A68422E00C9877D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CC4785731A68422E00C9877D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CC4785761A68422E00C9877D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		CC5C3A431A6913E800D89F9B /* libpython2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython2.7.dylib; path = /System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config/libpython2.7.dylib; sourceTree = "<absolute>"; };
+		CC5C3A451A69144000D89F9B /* client.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = client.py; sourceTree = "<group>"; };
+		CC5C3A481A69144000D89F9B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = Credits.rtf; sourceTree = "<group>"; };
+		CC5C3A4A1A69144000D89F9B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		CC5C3A4C1A69144000D89F9B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainMenu.xib; sourceTree = "<group>"; };
+		CC5C3A4E1A69144000D89F9B /* en */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = en; path = wayfinding.icns; sourceTree = "<group>"; };
+		CC5C3A4F1A69144000D89F9B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC5C3A501A69144000D89F9B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CC5C3A511A69144000D89F9B /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
+		CC5C3A521A69144000D89F9B /* portfolioapp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = portfolioapp.py; sourceTree = "<group>"; };
+		CC5C3A531A69144000D89F9B /* PortfolioAppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = PortfolioAppDelegate.py; sourceTree = "<group>"; };
+		CC5C3A541A69144000D89F9B /* setup.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = setup.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC5C3A441A6913E800D89F9B /* libpython2.7.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +54,7 @@
 			children = (
 				CC47856B1A68422E00C9877D /* PortfolioApp */,
 				CC47856A1A68422E00C9877D /* Products */,
+				CC5C3A431A6913E800D89F9B /* libpython2.7.dylib */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,22 +69,27 @@
 		CC47856B1A68422E00C9877D /* PortfolioApp */ = {
 			isa = PBXGroup;
 			children = (
-				CC47856E1A68422E00C9877D /* AppDelegate.h */,
-				CC47856F1A68422E00C9877D /* AppDelegate.m */,
-				CC4785731A68422E00C9877D /* Images.xcassets */,
-				CC4785751A68422E00C9877D /* MainMenu.xib */,
-				CC47856C1A68422E00C9877D /* Supporting Files */,
+				CC5C3A451A69144000D89F9B /* client.py */,
+				CC5C3A461A69144000D89F9B /* en.lproj */,
+				CC5C3A4F1A69144000D89F9B /* Info.plist */,
+				CC5C3A501A69144000D89F9B /* main.m */,
+				CC5C3A511A69144000D89F9B /* main.py */,
+				CC5C3A521A69144000D89F9B /* portfolioapp.py */,
+				CC5C3A531A69144000D89F9B /* PortfolioAppDelegate.py */,
+				CC5C3A541A69144000D89F9B /* setup.py */,
 			);
 			path = PortfolioApp;
 			sourceTree = "<group>";
 		};
-		CC47856C1A68422E00C9877D /* Supporting Files */ = {
+		CC5C3A461A69144000D89F9B /* en.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				CC47856D1A68422E00C9877D /* Info.plist */,
-				CC4785711A68422E00C9877D /* main.m */,
+				CC5C3A471A69144000D89F9B /* Credits.rtf */,
+				CC5C3A491A69144000D89F9B /* InfoPlist.strings */,
+				CC5C3A4B1A69144000D89F9B /* MainMenu.xib */,
+				CC5C3A4D1A69144000D89F9B /* wayfinding.icns */,
 			);
-			name = "Supporting Files";
+			path = en.lproj;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,8 +148,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC4785741A68422E00C9877D /* Images.xcassets in Resources */,
-				CC4785771A68422E00C9877D /* MainMenu.xib in Resources */,
+				CC5C3A5C1A69144000D89F9B /* main.py in Resources */,
+				CC5C3A551A69144000D89F9B /* client.py in Resources */,
+				CC5C3A571A69144000D89F9B /* InfoPlist.strings in Resources */,
+				CC5C3A5A1A69144000D89F9B /* Info.plist in Resources */,
+				CC5C3A561A69144000D89F9B /* Credits.rtf in Resources */,
+				CC5C3A5D1A69144000D89F9B /* portfolioapp.py in Resources */,
+				CC5C3A5E1A69144000D89F9B /* PortfolioAppDelegate.py in Resources */,
+				CC5C3A591A69144000D89F9B /* wayfinding.icns in Resources */,
+				CC5C3A5F1A69144000D89F9B /* setup.py in Resources */,
+				CC5C3A581A69144000D89F9B /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,20 +168,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC4785721A68422E00C9877D /* main.m in Sources */,
-				CC4785701A68422E00C9877D /* AppDelegate.m in Sources */,
+				CC5C3A5B1A69144000D89F9B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CC4785751A68422E00C9877D /* MainMenu.xib */ = {
+		CC5C3A471A69144000D89F9B /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CC4785761A68422E00C9877D /* Base */,
+				CC5C3A481A69144000D89F9B /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		CC5C3A491A69144000D89F9B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC5C3A4A1A69144000D89F9B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CC5C3A4B1A69144000D89F9B /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC5C3A4C1A69144000D89F9B /* en */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		CC5C3A4D1A69144000D89F9B /* wayfinding.icns */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC5C3A4E1A69144000D89F9B /* en */,
+			);
+			name = wayfinding.icns;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -208,6 +260,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = PortfolioApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -249,6 +305,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = PortfolioApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -275,6 +335,7 @@
 				CC4785851A68422F00C9877D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
