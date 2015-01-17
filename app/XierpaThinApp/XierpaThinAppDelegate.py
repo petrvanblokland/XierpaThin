@@ -8,7 +8,7 @@
 #
 # -----------------------------------------------------------------------------
 #
-#    PortfolioAppDelegate.py
+#    XierpaThinAppDelegate.py
 #
 
 from AppKit import NSObject
@@ -17,9 +17,9 @@ from PyObjCTools import AppHelper
 from client import Client
 from twisted.internet import reactor
 from twisted.web import server
-from portfolioapp import PortfolioApp
+from xierpathinapp import PortfolioApp
 
-class PortfolioAppDelegate(NSObject):
+class XierpaThinAppDelegate(NSObject):
     u"""
     Main delegate for WayFinding application.
     """
