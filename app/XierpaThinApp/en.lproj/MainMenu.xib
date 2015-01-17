@@ -14,10 +14,10 @@
         </customObject>
         <menu title="AMainMenu" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
-                <menuItem title="Portfolio" id="56">
-                    <menu key="submenu" title="Portfolio" systemMenu="apple" id="57">
+                <menuItem title="XierpaThin" id="56">
+                    <menu key="submenu" title="XierpaThin" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="About Portfolio" id="58">
+                            <menuItem title="About XierpaThin" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
@@ -36,7 +36,7 @@
                             <menuItem isSeparatorItem="YES" id="144">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Hide Portfolio" keyEquivalent="h" id="134">
+                            <menuItem title="Hide XierpaThin" keyEquivalent="h" id="134">
                                 <connections>
                                     <action selector="hide:" target="-1" id="367"/>
                                 </connections>
@@ -55,7 +55,7 @@
                             <menuItem isSeparatorItem="YES" id="149">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Quit Portfolio" keyEquivalent="q" id="136" userLabel="Quit WayFinding">
+                            <menuItem title="Quit XierpaThin" keyEquivalent="q" id="136" userLabel="Quit WayFinding">
                                 <connections>
                                     <action selector="terminate:" target="-1" id="369"/>
                                 </connections>
@@ -489,7 +489,7 @@
                 </menuItem>
             </items>
         </menu>
-        <customObject id="373" userLabel="PortfolioAppDelegate" customClass="PortfolioAppDelegate"/>
+        <customObject id="373" userLabel="XierpaThinAppDelegate" customClass="XierpaThinAppDelegate"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="aYU-5v-5tt">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>

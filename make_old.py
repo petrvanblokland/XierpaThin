@@ -3,7 +3,7 @@ import os
 import textile
 from writer import Writer
 
-class MakePortfolio(object):
+class MakeXierpaThin(object):
 
     # Textile: http://en.wikipedia.org/wiki/Textile_(markup_language)
     # Textile manual: http://redcloth.org/hobix.com/textile/
@@ -108,6 +108,6 @@ class MakePortfolio(object):
         f.close()
 
 if __name__ == '__main__':
-    mp = MakePortfolio()
+    mp = MakeXierpaThin()
     mp.make()
 

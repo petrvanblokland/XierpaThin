@@ -7,7 +7,7 @@
 #
 # -----------------------------------------------------------------------------
 #
-#    wayfindingapp.py
+#    xierpathinapp.py
 #
 
 import xierpathin
@@ -17,7 +17,7 @@ from xierpathin.htmlbuilder import HtmlBuilder
 from xierpathin.transformer import TX
 #from xierpathin.website.website import Website
 
-class PortfolioApp(object):
+class XierpaThinApp(object):
     u"""
     Wraps XierpaThin client for Twisted server.
     """

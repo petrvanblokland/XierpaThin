@@ -8,7 +8,7 @@ from xierpathin.componentmenu import Menu
 from xierpathin.constants import Constants
 from mycomponent import MyComponent
 
-class Portfolio(object):
+class XierpaThin(object):
 
     """
     KISS = Keep It Simple, Stupid
@@ -23,7 +23,7 @@ class Portfolio(object):
     C = Constants
 
     C.IMAGESPATH = 'SiteFormat'
-    C.TITLE = 'Portfolio Jasper van Blokland'
+    C.TITLE = 'XierpaThin Site'
     #DATAPATH = 'data'
     C.DATAPATH = '/Volumes/Archive4T/Jasper/2015-01-Archief/Site-Data'
     C.SITEPATH = '/jasper'

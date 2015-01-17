@@ -17,11 +17,11 @@ from PyObjCTools import AppHelper
 from client import Client
 from twisted.internet import reactor
 from twisted.web import server
-from xierpathinapp import PortfolioApp
+from xierpathinapp import XierpaThinApp
 
 class XierpaThinAppDelegate(NSObject):
     u"""
-    Main delegate for WayFinding application.
+    Main delegate for XierpaThin application.
     """
 
     def applicationShouldTerminate_(self, sender):
@@ -33,7 +33,7 @@ class XierpaThinAppDelegate(NSObject):
 
     def applicationDidFinishLaunching_(self, notification):
         client = Client()
-        client.app = PortfolioApp()
+        client.app = XierpaThinApp()
         site = server.Site(client)
         reactor.interleave(AppHelper.callAfter)
         reactor.listenTCP(client.app.port, site)

@@ -20,10 +20,10 @@ from setuptools import setup
 
 setup(
     app=['main.py'],
-    name="Portfolio",
+    name="XierpaThin",
     data_files=['en.lproj'],
     setup_requires=['py2app'],
-    options=dict(py2app=dict(#iconfile='en.lproj/portfolio.icns',
+    options=dict(py2app=dict(#iconfile='en.lproj/xierpathin.icns',
                              includes=['lxml.etree', 'lxml._elementpath'],
                              packages=['xierpathin']
                              )

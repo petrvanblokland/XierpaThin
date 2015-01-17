@@ -1,6 +1,6 @@
 //
 //  main.m
-//  PortfolioApp
+//  XierpaThinApp
 //
 //  Created by Michiel on 15/01/15.
 //
