@@ -31,7 +31,7 @@ class XierpaThinApp(object):
         """
         self.port = self.PORT
         self.url = self.URL
-        #self.website = Website(title='Poftfolio App')
+        #self.website = Website(title='Portfolio App')
 
         # Update root paths
         rootPath = TX.module2Path(xierpathin)
