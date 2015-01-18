@@ -12,6 +12,12 @@
 #
 class AppC(object):
 
-    WINDOW_WIDTH = 800
-    WINDOW_HEIGHT = 600
+    WINDOW_WIDTH = 600
+    WINDOW_HEIGHT = 400
+
+    # ---------------------------------------------------------------------------------------------------------
+    #    P A T H S
+
+    PATH_MAMP = '/Applications/MAMP/htdocs/' # Save exported site templates here
+    PATH_EXAMPLES = '~/Desktop/XierpaThinExamples/'  # Save exported examples here.
 

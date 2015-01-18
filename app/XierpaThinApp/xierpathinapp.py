@@ -28,22 +28,22 @@ from xierpathin.toolbox.transformer import TX
 from xierpathin.examples import Portfolio
 
 class XierpaThinApp(AppC):
-    u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
+    u"""Implementation of a vanilla-based GUI for the XierpaThin environment."""
 
     # Get Constants->Config as class variable, so inheriting classes can redefined values.
     C = Constants 
 
-    PORT = 8060
+    PORT = 8080
     URL = 'http://localhost:%d' % PORT
 
     # Make sure that the PHP frameworks are downloaded from the latest version in git.
-    GIT_ROOT = '/'.join(TX.module2Path(constants).split('/')[:-2]) + '/../'
-    PHP_SIMPLEMVC = GIT_ROOT + 'simple-mvc-framework-v2/'
-    if not os.path.exists(PHP_SIMPLEMVC):
-        print 'Download //github.com/simple-mvc-framework/v2 to', PHP_SIMPLEMVC
-    PHP_KIRBY = GIT_ROOT + 'kirby/'
-    if not os.path.exists(PHP_KIRBY):
-        print 'License //kirby.com and save to', PHP_KIRBY
+    #GIT_ROOT = '/'.join(TX.module2Path(constants).split('/')[:-2]) + '/../'
+    #PHP_SIMPLEMVC = GIT_ROOT + 'simple-mvc-framework-v2/'
+    #if not os.path.exists(PHP_SIMPLEMVC):
+    #    print 'Download //github.com/simple-mvc-framework/v2 to', PHP_SIMPLEMVC
+    #PHP_KIRBY = GIT_ROOT + 'kirby/'
+    #if not os.path.exists(PHP_KIRBY):
+    #    print 'License //kirby.com and save to', PHP_KIRBY
         
     SITE_LABELS = [
         #("Hello world", HelloWorld()),
@@ -66,13 +66,10 @@ class XierpaThinApp(AppC):
         self.w = view = Window((AppC.WINDOW_WIDTH, AppC.WINDOW_HEIGHT), "XierpaThin",
             closable=True, minSize=(200, 200), maxSize=(1600, 1000))
         siteLabels = self.getSiteLabels()
-        #y = len(siteLabels)*20
         y = 10
         bo = 25 # Button offset
         view.optionalSites = PopUpButton((10, y, 150, 24), siteLabels,
             sizeStyle='small', callback=self.selectSiteCallback)
-        #view.optionalSites = RadioGroup((10, 10, 150, y), siteLabels,
-        #    callback=self.selectSiteCallback, sizeStyle='small')
         self.w.optionalSites.set(0)
         y = y + 32
         view.openSite = Button((10, y, 150, 20), 'Open site', callback=self.openSiteCallback, sizeStyle='small')
@@ -91,14 +88,17 @@ class XierpaThinApp(AppC):
         view.doIndent = CheckBox((180, 30, 150, 20), 'Build indents', sizeStyle='small', value=True)
         view.forceCopy = CheckBox((180, 50, 150, 20), 'Overwrite files', sizeStyle='small', value=True)
         view.isOnline = CheckBox((180, 70, 150, 20), 'Online', sizeStyle='small', value=True, callback=self.isOnlineCallback)
-        view.console = EditText((10, -200, -10, -10), sizeStyle='small')
+
+        y += bo
+        view.console = EditText((10, y, -10, -10), sizeStyle='small')
+        
         # Path defaults
         y = 20
         view.mampRootLabel = TextBox((300, y, 100, 20), 'MAMP folder', sizeStyle='small')
-        view.mampRoot = EditText((400, y, -10, 20), self.C.PATH_MAMP, sizeStyle='small')
+        view.mampRoot = EditText((400, y, -10, 20), self.PATH_MAMP, sizeStyle='small')
         y += bo
         view.exampleRootLabel = TextBox((300, y, 100, 20), 'Root folder', sizeStyle='small')
-        view.exampleRoot = EditText((400, y, -10, 20), self.C.PATH_EXAMPLES, sizeStyle='small') 
+        view.exampleRoot = EditText((400, y, -10, 20), self.PATH_EXAMPLES, sizeStyle='small')
 
         view.open()
 

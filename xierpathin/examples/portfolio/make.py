@@ -1,13 +1,14 @@
 
 from xierpathin.adapters.adapter import Adapter
 from xierpathin.builders.htmlbuilder import HtmlBuilder
+from xierpathin.components.theme import Theme
 from xierpathin.components.page import Page
 from xierpathin.components.article import Article
 from xierpathin.components.navigation import Navigation
 from xierpathin.components.menu import Menu
 from xierpathin.constants import Constants
 
-class Portfolio(object):
+class Portfolio(Theme):
 
     """
     KISS = Keep It Simple, Stupid
@@ -28,23 +29,23 @@ class Portfolio(object):
     C.SOURCEROOT = '/portfolio_example'
     C.EXPORTROOT = '/Applications/MAMP/htdocs'
 
-    def __init__(self):
-
+    def __init__(self, name=None, components=None):
+        Theme.__init__(self, name=name, components=components)
+        print '33243234234', self.name, self.components
         self.adapter = adapter = Adapter(self.C.DATAPATH, sourceRoot=self.C.SOURCEROOT)
         menu = Menu(adapter)
         navigation = Navigation(adapter)
         article = Article(adapter)
-        #myComponent = MyComponent(components=)
         components = (menu, navigation, article)
 
         self.templates = (
-            Page('Home', adapter, components=components),
-            Page('Leukst', adapter, components=components),
-            Page('Laatst', adapter, components=components),
-            Page('Toen', adapter, components=components),
-            Page('Als...', adapter, components=components),
-            Page('School', adapter, components=components),
-            Page('Toekomst', adapter, components=components),
+            Page('Home', components),
+            Page('Leukst', components),
+            Page('Laatst', components),
+            Page('Toen', components),
+            Page('Als...', components),
+            Page('School', components),
+            Page('Toekomst', components),
         )
         # Find the categories for the menu, that actually have content.
         categories = adapter.getCategories()

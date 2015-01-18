@@ -17,13 +17,11 @@ class Page(Component):
 
     C = Constants
 
-    def __init__(self, name, adapter, title=None, components=None, fonts=None):
-        self.name = name
+    def __init__(self, name, title=None, components=None, fonts=None, cssPaths=None):
+        Component.__init__(self, name, components)
         self.title = title
-        self.adapter = adapter
-        self.components = components or []
         self.fonts = fonts or []
-        self.css = ['/jasper/style.css']
+        self.css = cssPaths or ['/css/style.css']
         self.style = None
 
     def build(self, b):

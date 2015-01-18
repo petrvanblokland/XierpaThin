@@ -20,9 +20,7 @@ from twisted.web import server
 from xierpathinapp import XierpaThinApp
 
 class XierpaThinAppDelegate(NSObject):
-    u"""
-    Main delegate for XierpaThin application.
-    """
+    u"""Main delegate for XierpaThin application."""
 
     def applicationShouldTerminate_(self, sender):
         if reactor.running:
