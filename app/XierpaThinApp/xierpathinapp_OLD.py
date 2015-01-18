@@ -11,10 +11,10 @@
 #
 
 import xierpathin
-from xierpathin.htmlbuilder import HtmlBuilder
+from xierpathin.builders.htmlbuilder import HtmlBuilder
 #from xierpathin.sassbuilder import SassBuilder
 #from xierpathin.cssbuilder import CssBuilder
-from xierpathin.transformer import TX
+from xierpathin.toolbox.transformer import TX
 #from xierpathin.website.website import Website
 
 class XierpaThinApp(object):

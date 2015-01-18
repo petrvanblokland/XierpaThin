@@ -10,7 +10,7 @@
 #
 #   component.py
 #
-from constants import Constants
+from xierpathin.constants import Constants
 
 class Component(object):
 

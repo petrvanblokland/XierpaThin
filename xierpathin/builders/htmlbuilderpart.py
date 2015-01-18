@@ -10,7 +10,7 @@
 #
 #     htmlbuilderpart.py
 #
-from transformer import TX
+from xierpathin.toolbox.transformer import TX
 
 class HtmlBuilderPart:
     """

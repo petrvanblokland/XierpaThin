@@ -8,7 +8,7 @@
 #
 # -----------------------------------------------------------------------------
 #
-#    xierpa3app.py
+#    xierpathinapp.py
 #
 import os
 import webbrowser
@@ -22,14 +22,10 @@ from xierpa3.builders.sassbuilder import SassBuilder
 from xierpa3.builders.cssbuilder import CssBuilder
 from xierpa3.builders.htmlbuilder import HtmlBuilder 
 from xierpa3.builders import PhpBuilder
-#from xierpa3.adapters import PhpAdapter
-#from xierpa3.adapters.kirby.kirbyadapter import KirbyAdapter
-from xierpa3.constants.constants import Constants
-from xierpa3.toolbox.transformer import TX
-from xierpa3.sites.examples import HelloWorld, HelloWorldStyle, HelloWorldLayout, \
-    HelloWorldBluePrint, HelloWorldResponsive, HelloWorldPages, OneColumnSite, OneArticleSite, \
-    SimpleTypeSpecimenSite, SimpleWebSite, SimpleResponsivePage, TextileArticles, \
-    FeaturedColumn, BasicWebsite, DbdWebsite
+#from xierpathin.adapters.adapter import Adapter
+from xierpathin.constants import Constants
+from xierpathin.toolbox.transformer import TX
+from xierpathin.examples import Portfolio
 
 class XierpaThinApp(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -49,37 +45,25 @@ class XierpaThinApp(AppC):
     if not os.path.exists(PHP_KIRBY):
         print 'License //kirby.com and save to', PHP_KIRBY
         
-    EXAMPLE_SCRIPT = """
-s = CurrentSite()
-page = s.components[0]
-print page
-print page.name
-"""
     SITE_LABELS = [
-        ("Hello world", HelloWorld()),
-        ("Hello world style", HelloWorldStyle()),
-        ("Hello world layout", HelloWorldLayout()),
-        ("Hello world pages", HelloWorldPages()),
-        ("Hello world responsive", HelloWorldResponsive()),
-        ("Hello world BluePrint", HelloWorldBluePrint()),
-        ("Simple responsive page", SimpleResponsivePage()),
-        ("One column", OneColumnSite()),
-        ("One Textile Wiki article", OneArticleSite()),
-        ("Simple type specimen", SimpleTypeSpecimenSite()),
-        ("Simple website", SimpleWebSite()),
-        ("Simple Textile article", TextileArticles()),
-        ("Basis website without styles", BasicWebsite()),
-        ("Featured column", FeaturedColumn()),
-        ("Basic DoingByDesign", DbdWebsite()),
-        ("DoingByDesign", DoingByDesign()),
+        #("Hello world", HelloWorld()),
+        #("Hello world style", HelloWorldStyle()),
+        #("Hello world layout", HelloWorldLayout()),
+        #("Hello world pages", HelloWorldPages()),
+        #("Hello world responsive", HelloWorldResponsive()),
+        #("Hello world BluePrint", HelloWorldBluePrint()),
+        #("Simple responsive page", SimpleResponsivePage()),
+        #("One column", OneColumnSite()),
+        #("One Textile Wiki article", OneArticleSite()),
+        ("Portfolio", Portfolio()),
     ]
     def __init__(self):
         u"""
         Initialize the window and open it.
         """
         self.port = self.PORT
-        
-        self.w = view = Window((AppC.WINDOW_WIDTH, AppC.WINDOW_HEIGHT), "Xierpa 3",
+
+        self.w = view = Window((AppC.WINDOW_WIDTH, AppC.WINDOW_HEIGHT), "XierpaThin",
             closable=True, minSize=(200, 200), maxSize=(1600, 1000))
         siteLabels = self.getSiteLabels()
         #y = len(siteLabels)*20
@@ -101,9 +85,9 @@ print page.name
         #y += bo
         view.openDocumentation = Button((10, y, 150, 20), 'Documentation', callback=self.openDocumentationCallback, sizeStyle='small')
         y += bo
-        view.openAsPhp = Button((10, y, 150, 20), 'Open as PHP', callback=self.openAsPhpCallback, sizeStyle='small')
+        #view.openAsPhp = Button((10, y, 150, 20), 'Open as PHP', callback=self.openAsPhpCallback, sizeStyle='small')
         #view.makeSite = Button((10, y+95, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
-        view.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small', value=True)
+        #view.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small', value=True)
         view.doIndent = CheckBox((180, 30, 150, 20), 'Build indents', sizeStyle='small', value=True)
         view.forceCopy = CheckBox((180, 50, 150, 20), 'Overwrite files', sizeStyle='small', value=True)
         view.isOnline = CheckBox((180, 70, 150, 20), 'Online', sizeStyle='small', value=True, callback=self.isOnlineCallback)
@@ -115,12 +99,7 @@ print page.name
         y += bo
         view.exampleRootLabel = TextBox((300, y, 100, 20), 'Root folder', sizeStyle='small')
         view.exampleRoot = EditText((400, y, -10, 20), self.C.PATH_EXAMPLES, sizeStyle='small') 
-        # Scripting
-        y += bo
-        view.script = TextEditor((300, y, -10, -240))
-        view.runScript = Button((500, -230, 150, -210), 'Run script', 
-            callback=self.runScriptCallback, sizeStyle='small')
-        view.script.set(self.EXAMPLE_SCRIPT)
+
         view.open()
 
     def getView(self):

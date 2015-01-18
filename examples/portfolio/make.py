@@ -1,14 +1,13 @@
 
-from xierpathin.adapter import Adapter
-from xierpathin.htmlbuilder import HtmlBuilder
-from xierpathin.page import Page
-from xierpathin.componentarticle import Article
-from xierpathin.componentnavigation import Navigation
-from xierpathin.componentmenu import Menu
+from xierpathin.adapters.adapter import Adapter
+from xierpathin.builders.htmlbuilder import HtmlBuilder
+from xierpathin.components.page import Page
+from xierpathin.components.article import Article
+from xierpathin.components.navigation import Navigation
+from xierpathin.components.menu import Menu
 from xierpathin.constants import Constants
-from mycomponent import MyComponent
 
-class XierpaThin(object):
+class Portfolio(object):
 
     """
     KISS = Keep It Simple, Stupid
@@ -23,15 +22,15 @@ class XierpaThin(object):
     C = Constants
 
     C.IMAGESPATH = 'SiteFormat'
-    C.TITLE = 'XierpaThin Site'
+    C.TITLE = 'Portfolio'
     #DATAPATH = 'data'
     C.DATAPATH = '/Volumes/Archive4T/Jasper/2015-01-Archief/Site-Data'
-    C.SITEPATH = '/jasper'
+    C.SOURCEROOT = '/portfolio_example'
     C.EXPORTROOT = '/Applications/MAMP/htdocs'
 
     def __init__(self):
 
-        self.adapter = adapter = Adapter(self.C.DATAPATH)
+        self.adapter = adapter = Adapter(self.C.DATAPATH, sourceRoot=self.C.SOURCEROOT)
         menu = Menu(adapter)
         navigation = Navigation(adapter)
         article = Article(adapter)
@@ -42,8 +41,8 @@ class XierpaThin(object):
             Page('Home', adapter, components=components),
             Page('Leukst', adapter, components=components),
             Page('Laatst', adapter, components=components),
-            Page('Vroeger', adapter, components=components),
-            Page('Als', adapter, components=components),
+            Page('Toen', adapter, components=components),
+            Page('Als...', adapter, components=components),
             Page('School', adapter, components=components),
             Page('Toekomst', adapter, components=components),
         )

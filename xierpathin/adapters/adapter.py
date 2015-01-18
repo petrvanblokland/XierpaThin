@@ -3,7 +3,7 @@
 #    xierpa server
 #    Copyright (c) 2014+  buro@petr.com, www.petr.com, www.xierpa.com
 #    
-#    X I E R P A  3
+#    X I E R P A  T H I N
 #    Distribution by the MIT License.
 #
 # -----------------------------------------------------------------------------
@@ -12,9 +12,9 @@
 #
 import os
 import re
-from constants import Constants
-from adict import ADict
-from lib import textile
+from xierpathin.constants import Constants
+from xierpathin.toolbox.adict import ADict
+from xierpathin.lib import textile
 
 class Adapter(object):
 
@@ -28,8 +28,9 @@ class Adapter(object):
     # Match comma separated list
     COMMASPLIT = re.compile('[,]*[\s]*([^,]*)')
 
-    def __init__(self, path):
+    def __init__(self, path, sourceRoot=None):
         self.path = path
+        self.sourceRoot = sourceRoot or self.C.SOURCEROOT
         self.articles = self._findArticles()
         self.images = {} # Key is article path, value is list of image paths.
 
@@ -48,7 +49,7 @@ class Adapter(object):
                 articles[filePath] = self._readArticle(filePath)
                 # Do images here too.
         return articles
-        #[ADict(dict(url='home.html', name='Home')), ADict(dict(url='vroeger.html', name='Vroeger'))]
+        #[ADict(dict(url='home.html', name='Home')), ADict(dict(url='toen.html', name='Toen'))]
 
     def _readArticle(self, path):
         f = open(path, 'r')
@@ -83,7 +84,7 @@ class Adapter(object):
         return self.selectedArticle.category
 
     def getUrlFromCategory(self, category):
-        return ADict(dict(url=self.C.SITEPATH + '/' + category.lower() + '/index.html'))
+        return ADict(dict(url=self.sourceRoot + '/' + category.lower() + '/index.html'))
 
     def select(self, article):
         self.selectedArticle = article
@@ -108,7 +109,7 @@ class Adapter(object):
         path = path.replace(self.path, '')
         templateName = path.split('/')[1]
         articleName = path.split('/')[-2]
-        url = self.C.SITEPATH + path.replace('.txt', '.html').lower()
+        url = self.sourceRoot + path.replace('.txt', '.html').lower()
         article = ADict(dict(name=articleName, category=templateName, url=url))
         text = []
         # Filter the field definitions

@@ -10,11 +10,13 @@
 #
 #   builder.py
 #
-import os, shutil
-from writer import Writer
-from transformer import TX
-from stack import Stack
-from constants import Constants
+import os
+import shutil
+
+from xierpathin.constants import Constants
+from xierpathin.toolbox.writer import Writer
+from xierpathin.toolbox.transformer import TX
+from xierpathin.toolbox.stack import Stack
 
 class Builder(object):
 

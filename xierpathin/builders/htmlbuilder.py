@@ -13,13 +13,13 @@
 #   Following standard
 #   https://google-styleguide.googlecode.com/svn/trunk/htmlcssguide.xml
 #
-from builder import Builder
+from xierpathin.builders.builder import Builder
 from xmltagbuilderpart import XmlTagBuilderPart
-from htmlbuilderpart import HtmlBuilderPart
-from transformer import TX
-from stack import Stack
-from constants import Constants
-from component import Component
+from xierpathin.builders.htmlbuilderpart import HtmlBuilderPart
+from xierpathin.toolbox.transformer import TX
+from xierpathin.toolbox.stack import Stack
+from xierpathin.constants import Constants
+from xierpathin.components.component import Component
 
 class HtmlBuilder(XmlTagBuilderPart, HtmlBuilderPart, Builder):
     u"""

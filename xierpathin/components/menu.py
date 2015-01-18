@@ -10,8 +10,8 @@
 #
 #   componentmenu.py
 #
-from component import Component
-from constants import Constants
+from xierpathin.constants import Constants
+from xierpathin.components.component import Component
 
 class Menu(Component):
 

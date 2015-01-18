@@ -1,5 +1,5 @@
 
-from xierpathin.component import Component
+from xierpathin.components.component import Component
 
 class MyComponent(Component):
 
