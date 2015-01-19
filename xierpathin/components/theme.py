@@ -11,7 +11,9 @@
 #    theme.py
 #
 import urllib
-from xierpathin.components.component import Component
+from component import Component
+from page import Page
+from text import Text
 
 class Theme(Component):
 
@@ -21,7 +23,7 @@ class Theme(Component):
     TITLE = 'Redefine cls.TITLE in inheriting theme class.'
 
     def __repr__(self):
-        return '<Theme: %s>' % (self.selector or self.name)
+        return '<Theme: %s>' % (self.name or self.TITLE)
 
     def reset(self):
         u"""Gets called prior to every page render. Can be redefined by inheriting theme classes.
@@ -37,18 +39,25 @@ class Theme(Component):
         urlNames = set()
         for urlName in builder.getParamNames():
             urlNames.add(urllib.unquote(urlName).replace(' ', ''))
-        for component in self.components:
-            if component.template in urlNames or component.name in urlNames:
-                return component
+        for template in self.templates:
+            if template.name in urlNames:
+                return template
 
         # Could not find a match, answer the default template.
         # If no default component exists, then answer self.
         # This happens if there is only one page in the site.
-        return self.getComponent(self.C.TEMPLATE_DEFAULT) or self
+        return self.getTemplate(self.C.TEMPLATE_DEFAULT) or self.getDefaultTemplate()
 
-    def getTemplates(self):
-        u"""Answer the list of templates of this theme."""
-        return self.components
+    def getTemplate(self, name):
+        for template in self.templates:
+            if template.name == name:
+                return template
+        return None
+
+    def getDefaultTemplate(self):
+        u"""Answer last resort template. Nothing else could be found."""
+        p = Page('Default template', components=Text('No template found'))
+        return p
 
     def buildBlock(self, builder):
         u"""Build the current page of this theme."""

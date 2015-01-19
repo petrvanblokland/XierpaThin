@@ -961,7 +961,7 @@ class HtmlBuilderPart:
         """
         if not args.get('border'):
             args['border'] = self.C.IMG_DEFAULTBORDER
-        if not self.C.USEONLINE: # If online, then use the real url. Otherwise local image placeholder
+        if not self.isOnline(): # If online, then use the real url. Otherwise local image placeholder
             args['src'] = self.C.URL_IMAGEPLACEHOLDER
         self.write_tag(u'img', False, args)
 

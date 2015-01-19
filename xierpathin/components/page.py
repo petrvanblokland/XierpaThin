@@ -17,7 +17,7 @@ class Page(Component):
 
     C = Constants
 
-    def __init__(self, name, title=None, components=None, fonts=None, cssPaths=None):
+    def __init__(self, name=None, title=None, components=None, fonts=None, cssPaths=None):
         Component.__init__(self, name, components)
         self.title = title
         self.fonts = fonts or []
@@ -29,7 +29,8 @@ class Page(Component):
         for component in self.components:
             component.build(b)
         b._page(self)
-        b.save(self.adapter.selectedArticle.url)
+        if not b.isOnline() and self.adapter is not None:
+            b.save(self.adapter.selectedArticle.url)
 
     def _get_title(self):
         return self._title or self.name #self.adapter.selectedArticle.title or self.name

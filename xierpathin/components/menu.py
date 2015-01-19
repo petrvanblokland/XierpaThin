@@ -19,18 +19,19 @@ class Menu(Component):
 
     def __init__(self, adapter):
         self.adapter = adapter
-        self.categories = [] # Need to be filled later, when know which categories are used.
 
     def build(self, b):
+        # Find active category. If not found, it is the first of the menu.
+        category = self.adapter.findActiveCategory(b.e.getFullPath())
+
         b.div(class_=self.getClassName())
-        for category in self.categories:
-            url = self.adapter.getUrlFromCategory(category).url
-            b.a(href=url)
-            b.text(category)
+        for name, label in self.adapter.menu:
+            class_ = 'menu'
+            if name == category:
+                class_ += ' active'
+            b.a(class_=class_, href='/%s/index' % name)
+            b.text(label)
             b._a()
             b.text(' ')
         b._div()
 
-    def addCategory(self, name):
-        print '331', name
-        self.categories.append(name)

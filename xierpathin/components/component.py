@@ -11,15 +11,20 @@
 #   component.py
 #
 from xierpathin.constants import Constants
+from xierpathin.adapters.adapter import Adapter
 
 class Component(object):
 
     # Get Constants->Config as class variable, so inheriting classes can redefine values.
     C = Constants
 
-    def __init__(self, name=None, components=None):
-        self.name = name or self.getClassName()
+    def __init__(self, name=None, components=None, adapter=None):
+        self.name = self.title = name or self.getClassName()
         self.components = components or []
+        self.adapter = adapter
+
+    def getTitle(self, path=None):
+        return path or self.title
 
     def getClassName(self):
         return self.__class__.__name__

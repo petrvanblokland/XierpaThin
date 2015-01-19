@@ -8,19 +8,14 @@
 #
 # -----------------------------------------------------------------------------
 #
-#   componenttext.py
+#    http://twistedmatrix.com/documents/10.1.0/web/howto/using-twistedweb.html
 #
-from xierpathin.components.component import Component
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#    baseserver.py
+#
 from xierpathin.constants import Constants
 
-class Text(Component):
-
+class BaseServer(object):
+    
     C = Constants
-
-    def __init__(self, text):
-        self.text = text
-
-    def build(self, b):
-        b.text(self.text)
-
-

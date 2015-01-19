@@ -10,13 +10,12 @@
 #
 #   builder.py
 #
-import os
-import shutil
-
-from xierpathin.constants import Constants
+import os, shutil
 from xierpathin.toolbox.writer import Writer
+from xierpathin.constants import Constants
 from xierpathin.toolbox.transformer import TX
 from xierpathin.toolbox.stack import Stack
+from xierpathin.descriptors.environment import Environment
 
 class Builder(object):
 
@@ -27,11 +26,12 @@ class Builder(object):
     EXTENSION = ID # To be redefined by inheriting class. Default extension of output files.
     #DEFAULT_PATH = 'files/' # Default path for saving files with self.save()
     DO_INDENT = False
-    ROOT_PATH = None # Root path to be redefined by inheriting builder classes.
-
-    def __init__(self, result=None, verbose=True, doIndent=True, exportRoot=None):
-        self._exportRoot = exportRoot
+    ROOT_PATH = None # Root path to be redefined by inheriting builder classes. 
+    
+    def __init__(self, e=None, result=None, verbose=True, doIndent=True, useOnline=True):
+        self.e = e or Environment() # Store the theme.e environment in case running as server. Otherwise create.
         self._verbose = verbose
+        self._useOnline = useOnline
         self._doIndent = doIndent # Use indent for blocks on the output
         self._tabLevel = 0 # If indenting, keep tab level here.
         self._newLine = '\n' # Newline code to add˙at all closing of blocks
@@ -45,15 +45,14 @@ class Builder(object):
     def __repr__(self):
         return '[%s]' % self.__class__.__name__
 
-    def reset(self):
-        u"""Reset the current result writer of the builder. Reset is needed if the same builder is
-        used to generate multiple pages."""
-        self.initializeResult()
-
     def initializeResult(self, result):
         u"""Initialize the @self.result@ from the optional *result* stack."""
         assert result is None or isinstance(result, Stack)
-        self.result = result or self.newResultWriter()
+        if result is None:
+            result = Stack()
+        self.result = result
+        if not self.result: # If empty stack, so push a new root result writer
+            self.result.push(self.newResultWriter())
 
     def initialize(self):
         u"""To be redefined by inheriting builder classes. Default behavior is to nothing."""
@@ -73,7 +72,7 @@ class Builder(object):
     
     def getComponentFileName(self, root, component):
         u"""Answer the file path of the component. @@@ This should be based on URL too."""
-        return component.name + '.' + self.getExtension()
+        return (component.name or 'Untitled') + '.' + self.getExtension()
 
     def getFilePath(self, component, root=None):
         u"""Answer the file path of @component@."""
@@ -155,15 +154,40 @@ class Builder(object):
         u"""Output the @s@ string to the result stream."""
         # See all output:
         #print s,
-        self.result.write(s)
+        self.result.peek().write(s)
 
     #  R E S U L T  The stack of output streams.
+
+    def peekResult(self):
+        u"""Answer the current writer stream."""
+        return self.result.peek()
 
     def getResult(self):
         u"""Check if there is only one output writer left. This call should be made at the end of a rendering.
         Pop the writer and answer the result."""
-        return self.result.getValue()
+        assert len(self.result) == 1
+        return self.popResult()
 
+    def pushResult(self, writer=None, name=None):
+        u"""Push the optional *writer*. If the attribute is @None@, then create a new writer."""
+        if writer is None:
+            # Save an optional identifier, so the caller knows at closing of the block.
+            writer = self.newResultWriter(name)
+        self.result.push(writer)
+
+    def popResult(self):
+        u"""Answer the writer result if it exists. Answer @None@ otherwise."""
+        if self.result:
+            return self.result.pop().getValue()
+        return None
+
+    def popNameResult(self):
+        u"""Answer the tuple of @writer.name@ and the writer result."""
+        if self.result:
+            writer = self.result.pop()
+            return writer.name, writer.getValue()
+        return None, None
+    
     #   E R R O R
     
     def error(self, s):
@@ -222,15 +246,3 @@ class Builder(object):
     def _block(self, component):
         pass
     
-    #  S A V E
-
-    def save(self, path):
-        path = self._exportRoot + path.lower()
-        dir = TX.path2Dir(path)
-        if not os.path.exists(dir):
-            os.makedirs(dir)
-        f = open(path, 'w')
-        f.write(self.getResult())
-        f.close()
-
-

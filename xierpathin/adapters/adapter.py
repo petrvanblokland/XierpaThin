@@ -12,9 +12,11 @@
 #
 import os
 import re
+
 from xierpathin.constants import Constants
-from xierpathin.toolbox.adict import ADict
+from xierpathin.toolbox.storage.adict import ADict
 from xierpathin.lib import textile
+from xierpathin.toolbox.transformer import TX
 
 class Adapter(object):
 
@@ -23,33 +25,44 @@ class Adapter(object):
 
     # Chapter tag, split chapters between this code.
     CHAPTER_TAG = '=C='
+    # Valid$ field names
+    FIELDNAMES = ('title', 'images', 'poster', 'summary', 'author', 'topic', 'categories', 'menu')
+    REQUIREDFIELDS = ('title', 'category')
     # Match line pattern "$fielName value"
     FIELDVALUE = re.compile('\$([\w]*) (.*)')
     # Match comma separated list
     COMMASPLIT = re.compile('[,]*[\s]*([^,]*)')
 
-    def __init__(self, path, sourceRoot=None):
-        self.path = path
-        self.sourceRoot = sourceRoot or self.C.SOURCEROOT
-        self.articles = self._findArticles()
+    def __init__(self, path=None):
+        self.setPath(path) # Will initialize articles if available in the path
         self.images = {} # Key is article path, value is list of image paths.
+        self.menu = []
+        self.categories = {}
+
+    def setPath(self, path):
+        self.path = path
+        self.categories = {} # Reset the categories
+        self.articles = self._findArticles()
 
     def _findArticles(self, path=None, articles=None):
         if articles is None:
             articles = {}
         if path is None:
             path = self.path
-        for fileName in os.listdir(path):
-            if fileName.startswith('.'):
-                continue
-            filePath = path + '/' + fileName
-            if os.path.isdir(filePath):
-                self._findArticles(filePath, articles)
-            elif fileName == 'index.txt':
-                articles[filePath] = self._readArticle(filePath)
-                # Do images here too.
-        return articles
+        if path is not None and os.path.exists(path):
+            for fileName in os.listdir(path):
+                if fileName.startswith('.'):
+                    continue
+                filePath = path + '/' + fileName
+                if os.path.isdir(filePath):
+                    self._findArticles(filePath, articles)
+                elif fileName == 'index.txt':
+                    article = self._readArticle(filePath)
+                    articles[article.url] = article
+                    # Do images here too.
         #[ADict(dict(url='home.html', name='Home')), ADict(dict(url='toen.html', name='Toen'))]
+        # Answer list of articles.
+        return articles
 
     def _readArticle(self, path):
         f = open(path, 'r')
@@ -66,6 +79,19 @@ class Adapter(object):
     def getFavIcon(self):
         return ADict(dict(url=self.C.URL_FAVICON))
 
+    def findActiveArticle(self, url):
+        if url in self.articles:
+            return self.articles[url]
+        return None
+
+    def findActiveCategory(self, path):
+        for name, _ in self.menu:
+            if '/'+ name in path:
+                return name
+        # Did we find an active category
+        category, _ = self.menu[0]
+        return category
+
     def selectArticlesByCategory(self, category):
         articles = []
         for article in self.articles.values():
@@ -80,14 +106,11 @@ class Adapter(object):
             categories.add(article.category)
         return categories
 
-    def getSelectedCategory(self):
-        return self.selectedArticle.category
-
-    def getUrlFromCategory(self, category):
-        return ADict(dict(url=self.sourceRoot + '/' + category.lower() + '/index.html'))
-
     def select(self, article):
         self.selectedArticle = article
+
+    def getArticle(self, articleUrl):
+        return self.articles.get(articleUrl)
 
     def _splitFieldValue(self, line):
         u"""Split the string *line* into field name (starting with $ and ending with space)
@@ -102,35 +125,66 @@ class Adapter(object):
             return fieldName, value
         return None, None # No field name match on this line.
 
-    def _compileArticle(self, path, wiki):
+    def _compileArticle(self, fullPath, wiki):
         u"""Compile the wiki text into an Article instance, but parsing the field definition, split
         on chapters and translate the chapter content through textile to html.
         See specification on :http://redcloth.org/hobix.com/textile/ """
-        path = path.replace(self.path, '')
+        path = fullPath.replace(self.path, '')
         templateName = path.split('/')[1]
         articleName = path.split('/')[-2]
-        url = self.sourceRoot + path.replace('.txt', '.html').lower()
-        article = ADict(dict(name=articleName, category=templateName, url=url))
+        url = self.path + path.replace('.txt', '.html').lower()
+        article = ADict(dict(name=articleName, category=templateName, path=path, fullPath=fullPath,
+            url=TX.name2UrlName(articleName)))
         text = []
         # Filter the field definitions
         wiki = wiki.replace('\r', '\n')
+        for fieldName in self.FIELDNAMES:
+            article[fieldName] = None
         for line in wiki.split('\n'):
             if line.startswith('$'):
                 fieldName, value = self._splitFieldValue(line)
-                if fieldName is not None:
+                hook = 'setField_' + fieldName
+                if not fieldName in self.FIELDNAMES:
+                    message = 'Illegal article parameter "%s" in article "%s".' % (fieldName, path)
+                    self.editArticle(path, message)
+                elif hasattr(self, hook):
+                    getattr(self, hook)(value, article)
+                else:
                     article[fieldName] = value
             else:
                 text.append(line) # Keep normal text lines.
+
+        # Check is all required fields are filled. Otherwise open the article file in the editor.
+        for requiredField in self.REQUIREDFIELDS:
+            if article[requiredField] is None:
+                message = 'Missing required parameter "%s" in article "%s".' % (requiredField, path)
+                self.editArticle(article.path, message)
+
         # Split the chapters, in the text indicated by =C=
         article.chapters = []
         for chapter in ('\n'.join(text)).split(self.CHAPTER_TAG):
             article.chapters.append(textile.textile(chapter))
         return article
 
+    def editArticle(self, path, message=None):
+        if message is not None:
+            print message
+        os.system('open %s' % (self.path + path))
 
-if __name__ == '__main__':
-    DATAPATH = '/Volumes/Archive4T/Jasper/2015-01-Archief/Site-Data'
+    def setField_categories(self, line, article):
+        article.categories = []
+        for category in line.split(','):
+            category = category.strip()
+            article.categories.append(category)
+            if not category in self.categories:
+                self.categories[category] = []
+            self.categories[category].append(article)
 
-    adapter = Adapter(DATAPATH)
-    print adapter.articles
-    print adapter.selectArticlesByCategory('School')
+    def setField_menu(self, items, article):
+        self.menu = []
+        for menuItem in items:
+            menuItem = menuItem.strip()
+            menuItem = menuItem.split(':')
+            if len(menuItem) == 2:
+                self.menu.append(menuItem) # Tuple of (urlName, label)
+

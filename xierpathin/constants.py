@@ -13,7 +13,7 @@
 #   Formatting conform https://google-styleguide.googlecode.com/svn/trunk/htmlcssguide.xml
 #
 class Constants(object):
-    u"""Inherited by main Xierpa3 classes, to share default constants,
+    u"""Inherited by main XierpaThin classes, to share default constants,
     will allowing to be redefined by inheriting classes."""
     
     USEONLINE = True
@@ -31,9 +31,9 @@ class Constants(object):
     # If using the font in this package, safest is to refer to the functional constant names below,
     # instead of making a direct reference to the family name.
     # Of course, taking your own account at //www.webtype.com is even better :)
-    XIERPA3_DEMOFONTS = '//cloud.webtype.com/css/7aa22aa1-1709-4b55-b95c-3413d3e5280a.css'
+    XIERPATHIN_DEMOFONTS = '//cloud.webtype.com/css/7aa22aa1-1709-4b55-b95c-3413d3e5280a.css'
     # Redefine this list for other font packages in inheriting theme classes.
-    URL_FONTS = [] #XIERPA3_DEMOFONTS,)
+    URL_FONTS = [] #XIERPATHIN_DEMOFONTS,)
     BODYFAMILY = 'Georgia'
     HEADFAMILY = 'Verdana'
     LOGOFAMILY = HEADFAMILY
@@ -45,8 +45,8 @@ class Constants(object):
     URL_FAVICON = '//data.xierpadoc.com.s3.amazonaws.com/_images/xierpa_x.ico'
     URL_LOGO = '//data.xierpa.com.s3.amazonaws.com/_images/xierpa_x_green.png'
     # Placeholder for all images if not online.
-    URL_XIERPA3RESOURCES = '/xierpa3/resources/'
-    URL_IMAGEPLACEHOLDER = URL_XIERPA3RESOURCES + 'images/placeholder.png'
+    URL_XIERPATHINRESOURCES = '/xierpathin/resources/'
+    URL_IMAGEPLACEHOLDER = URL_XIERPATHINRESOURCES + 'images/placeholder.png'
 
     # CSS
     URL_CSS = ['css/style.css']

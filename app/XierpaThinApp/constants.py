@@ -18,6 +18,6 @@ class AppC(object):
     # ---------------------------------------------------------------------------------------------------------
     #    P A T H S
 
-    PATH_MAMP = '/Applications/MAMP/htdocs/' # Save exported site templates here
-    PATH_EXAMPLES = '~/Desktop/XierpaThinExamples/'  # Save exported examples here.
-
+    PATH_SOURCES = '~/Desktop/Jasper-Site-Data'  # Import the adapter sources here.
+    PATH_EXPORT = '/Applications/MAMP/htdocs/' # Save exported site templates here
+    PATH_STYLE = '/css/style.css'

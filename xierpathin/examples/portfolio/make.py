@@ -6,6 +6,7 @@ from xierpathin.components.page import Page
 from xierpathin.components.article import Article
 from xierpathin.components.navigation import Navigation
 from xierpathin.components.menu import Menu
+from xierpathin.components.group import Group
 from xierpathin.constants import Constants
 
 class Portfolio(Theme):
@@ -25,27 +26,30 @@ class Portfolio(Theme):
     C.IMAGESPATH = 'SiteFormat'
     C.TITLE = 'Portfolio'
     #DATAPATH = 'data'
-    C.DATAPATH = '/Volumes/Archive4T/Jasper/2015-01-Archief/Site-Data'
-    C.SOURCEROOT = '/portfolio_example'
-    C.EXPORTROOT = '/Applications/MAMP/htdocs'
+    #C.DATAPATH = '/Volumes/Archive4T/Jasper/2015-01-Archief/Site-Data'
+    #C.SOURCEROOT = '/portfolio_example'
+    #C.EXPORTROOT = '/Applications/MAMP/htdocs'
+
+    TITLE = 'Demo ' + C.TITLE
 
     def __init__(self, name=None, components=None):
         Theme.__init__(self, name=name, components=components)
-        print '33243234234', self.name, self.components
-        self.adapter = adapter = Adapter(self.C.DATAPATH, sourceRoot=self.C.SOURCEROOT)
+        self.adapter = adapter = Adapter()
         menu = Menu(adapter)
         navigation = Navigation(adapter)
         article = Article(adapter)
-        components = (menu, navigation, article)
+        header = Group(components=(menu, navigation))
+        components = (header, article)
 
         self.templates = (
-            Page('Home', components),
-            Page('Leukst', components),
-            Page('Laatst', components),
-            Page('Toen', components),
-            Page('Als...', components),
-            Page('School', components),
-            Page('Toekomst', components),
+            Page('index', title='Home', components=components),
+            Page('home', title='Home', components=components),
+            Page('leukst', title='Leukst', components=components),
+            Page('laatst', title='Laatst', components=components),
+            Page('toen', title='Toen', components=components),
+            Page('als', title='Als...', components=components),
+            Page('school', title='School', components=components),
+            Page('toekomst', title='Toekomst', components=components),
         )
         # Find the categories for the menu, that actually have content.
         categories = adapter.getCategories()
