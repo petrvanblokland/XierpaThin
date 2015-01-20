@@ -23,7 +23,7 @@ setup(
     name="XierpaThin",
     data_files=['en.lproj'],
     setup_requires=['py2app'],
-    options=dict(py2app=dict(#iconfile='en.lproj/xierpathin.icns',
+    options=dict(py2app=dict(iconfile='en.lproj/xierpathin.icns',
                              includes=['lxml.etree', 'lxml._elementpath'],
                              packages=['xierpathin']
                              )
