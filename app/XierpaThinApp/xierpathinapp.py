@@ -168,7 +168,6 @@ class XierpaThinApp(AppC):
         sys.path.append(root)
         for siteName in view.selectedSite.getItems():
             imported = importlib.import_module(siteName)
-            print imported.Site
             self.themes[siteName] = imported.Site() # Make instance of site.
         print self.themes
 
@@ -212,7 +211,8 @@ class XierpaThinApp(AppC):
         pagePaths = []
         root = self.getRootPath()
         if os.path.exists(root):
-            sitePath = root + self.getSelectedSiteName()
+            sitePath = root + self.getSelectedSiteName() # Add the root index.txt of the site.
+            pagePaths.append(dict(path=sitePath))
             if os.path.isdir(sitePath):
                 self._findPagePathRecords(sitePath + '/', pagePaths)
         return pagePaths
