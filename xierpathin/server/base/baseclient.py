@@ -19,7 +19,6 @@ from xierpathin.constants import Constants
 from xierpathin.toolbox.dating import DateTime
 from xierpathin.toolbox.parsers.c_json import cjson
 from xierpathin.builders.htmlbuilder import HtmlBuilder
-#from xierpathin.builders.cssbuilder import CssBuilder
 from xierpathin.descriptors.environment import Environment
 from xierpathin.toolbox.transformer import TX
 
@@ -84,7 +83,6 @@ class BaseClient(object):
         class.
         """
         import re
-
         host = httprequest.getHeader('Host')
         if host:
             for key in self.getThemes().keys():
@@ -99,7 +97,6 @@ class BaseClient(object):
     def getDefaultThemeName(self):
         u"""
         The @getDefaultThemeName@ method answers the default site name @self.DEFAULTTHEME@.
-        
         """
         return self.DEFAULTTHEME
 
@@ -107,7 +104,7 @@ class BaseClient(object):
         u"""
         The @getSites@ answers dictionary with the sites this client runs.
         """
-        return self.THEMES
+        return self.app.themes.keys()
 
     def getThemeNames(self):
         u"""
@@ -137,13 +134,17 @@ class BaseClient(object):
         on the same server.
         """
         themeName = self.getThemeName(httprequest)
+        theme = self.app.getTheme(themeName)
+        """
+        print '3233332323', httprequest
+        print '@@@@@@@@@@@@@@@', themeName
         theme = self.getTheme(themeName)
-        '''
-        Plug the current environment into the template for rendering. This allows the static components of the site
-        template conditionally respond to settings of the current request.
-        TODO: Make this work with sessions too, using the old E manager.
-        '''
+        print '@@@@@@@@@@@@@@@', themeName, theme
+        # Plug the current environment into the template for rendering. This allows the static components of the site
+        # template conditionally respond to settings of the current request.
+        # TODO: Make this work with sessions too, using the old E manager.
         theme.e = Environment(request=httprequest)
+        """
         return theme
 
     def setMimeTypeEncoding(self, mimeType, request):
@@ -190,13 +191,13 @@ class BaseClient(object):
 
     def buildCss(self, site):
         u"""Answer the content of the CSS file."""
-        cssPath = os.path.expanduser('~/Desktop/Jasper-Site-Data/css/style.css')
+        cssPath = self.app.getCssPath()
         if os.path.exists(cssPath):
             f = open(cssPath)
             css = f.read()
             f.close()
         else:
-            css = '/* CANNOT FIND CSS FILE */ body {background-color:yellow;}'
+            css = '/* CANNOT FIND CSS FILE \n%s\n*/ \nbody {background-color:yellow;}'
         return css, self.C.MIMETYPE_CSS
 
     def XXXbuildCss(self, site):

@@ -12,12 +12,13 @@
 #
 class AppC(object):
 
-    WINDOW_WIDTH = 600
+    WINDOW_WIDTH = 700
     WINDOW_HEIGHT = 400
 
     # ---------------------------------------------------------------------------------------------------------
     #    P A T H S
 
-    PATH_SOURCES = '~/Desktop/Jasper-Site-Data'  # Import the adapter sources here.
+    PATH_SOURCES = '~/Desktop/Sites'  # Import the adapter sources here.
     PATH_EXPORT = '/Applications/MAMP/htdocs/' # Save exported site templates here
     PATH_STYLE = '/css/style.css'
+    PATH_SITE = '/py/site.py'

@@ -10,4 +10,4 @@
 #
 #   examples
 #
-from xierpathin.examples.portfolio.make import Portfolio
+from xierpathin.examples.example.make import Example

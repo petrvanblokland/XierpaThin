@@ -9,15 +9,14 @@
 # -----------------------------------------------------------------------------
 
 from xierpathin.server.twistedmatrix.twistedclient import TwistedClient
-from xierpathin.examples import Portfolio
+from xierpathin.examples import Example
 
 class Client(TwistedClient):
 
     # Other examples to be added here as soon as they work.
-    portfolio = Portfolio(title='Portfolio')
-    
-    THEMES = {
-        # Matching theme names with Theme instances.
-        TwistedClient.DEFAULTTHEME: portfolio,
-        'portfolio': portfolio,  # http://localhost:8050/portfolio (same as default site)
+    example = Example(title='Example')
+
+    THEMES = { # Matching theme names with Theme instances.
+        TwistedClient.DEFAULTTHEME: example,
+        'example': example,  # http://localhost:8050/portfolio (same as default site)
     }

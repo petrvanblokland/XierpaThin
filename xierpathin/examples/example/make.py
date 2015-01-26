@@ -9,26 +9,17 @@ from xierpathin.components.menu import Menu
 from xierpathin.components.group import Group
 from xierpathin.constants import Constants
 
-class Portfolio(Theme):
+class Example(Theme):
 
-    """
-    KISS = Keep It Simple, Stupid
-    RTFM = Read The F***ing Manual
-
-    Mapping the content
-    Scaling Image Archive
-    """
     # Textile: http://en.wikipedia.org/wiki/Textile_(markup_language)
     # Textile manual: http://redcloth.org/hobix.com/textile/
 
     C = Constants
 
     C.IMAGESPATH = 'SiteFormat'
-    C.TITLE = 'Portfolio'
-    #DATAPATH = 'data'
-    #C.DATAPATH = '/Volumes/Archive4T/Jasper/2015-01-Archief/Site-Data'
-    #C.SOURCEROOT = '/portfolio_example'
-    #C.EXPORTROOT = '/Applications/MAMP/htdocs'
+    C.TITLE = 'Example Site'
+    C.SOURCEROOT = '/example'
+    C.EXPORTROOT = '/Applications/MAMP/htdocs'
 
     TITLE = 'Demo ' + C.TITLE
 
@@ -44,12 +35,7 @@ class Portfolio(Theme):
         self.templates = (
             Page('index', title='Home', components=components),
             Page('home', title='Home', components=components),
-            Page('leukst', title='Leukst', components=components),
-            Page('laatst', title='Laatst', components=components),
-            Page('toen', title='Toen', components=components),
-            Page('als', title='Als...', components=components),
-            Page('school', title='School', components=components),
-            Page('toekomst', title='Toekomst', components=components),
+            Page('contact', title='Contact', components=components),
         )
         # Find the categories for the menu, that actually have content.
         categories = adapter.getCategories()
@@ -65,8 +51,7 @@ class Portfolio(Theme):
                 builder = HtmlBuilder(exportRoot=self.C.EXPORTROOT)
                 template.build(builder)
 
-
 if __name__ == '__main__':
-    portfolio = Portfolio()
-    portfolio.make()
+    example = Example()
+    example.make()
 
