@@ -26,7 +26,7 @@ class Adapter(object):
     # Chapter tag, split chapters between this code.
     CHAPTER_TAG = '=C='
     # Valid$ field names
-    FIELDNAMES = ('title', 'images', 'poster', 'summary', 'author', 'topic', 'categories', 'menu')
+    FIELDNAMES = ('title', 'images', 'poster', 'summary', 'author', 'topic', 'categories', 'menu', 'template')
     REQUIREDFIELDS = ('title', 'category')
     # Match line pattern "$fielName value"
     FIELDVALUE = re.compile('\$([\w]*) (.*)')
@@ -34,15 +34,18 @@ class Adapter(object):
     COMMASPLIT = re.compile('[,]*[\s]*([^,]*)')
 
     def __init__(self, path=None):
-        self.setPath(path) # Will initialize articles if available in the path
+        self.path = path # Will initialize articles if available in the path
         self.images = {} # Key is article path, value is list of image paths.
         self.menu = []
         self.categories = {}
 
-    def setPath(self, path):
-        self.path = path
+    def _get_path(self):
+        return self._path
+    def _set_path(self, path):
+        self._path = path
         self.categories = {} # Reset the categories
         self.articles = self._findArticles()
+    path = property(_get_path, _set_path)
 
     def _findArticles(self, path=None, articles=None):
         if articles is None:
@@ -70,6 +73,14 @@ class Adapter(object):
         f.close()
         return article
 
+    def getPosterArticles(self, category):
+        posterArticles = []
+        for article in self.articles.values():
+            if article.poster is not None:
+                if category is None or category in article.categories:
+                    posterArticles.append(article)
+        return posterArticles
+
     def getDescription(self):
         return ADict(dict(text='Adapter description'))
 
@@ -83,6 +94,11 @@ class Adapter(object):
         if url in self.articles:
             return self.articles[url]
         return None
+
+    def findSiteName(self, path):
+        if path.startswith('/'):
+            path = path[1:]
+        return path.split('/')[0]
 
     def findActiveCategory(self, path):
         for name, _ in self.menu:

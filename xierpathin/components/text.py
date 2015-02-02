@@ -18,6 +18,7 @@ class Text(Component):
     C = Constants
 
     def __init__(self, text):
+        self.name = self.__class__.__name__
         self.text = text
 
     def build(self, b):

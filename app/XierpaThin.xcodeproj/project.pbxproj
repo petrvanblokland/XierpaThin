@@ -15,8 +15,8 @@
 		CC5C3A5A1A69144000D89F9B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A4F1A69144000D89F9B /* Info.plist */; };
 		CC5C3A5B1A69144000D89F9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5C3A501A69144000D89F9B /* main.m */; };
 		CC5C3A5C1A69144000D89F9B /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A511A69144000D89F9B /* main.py */; };
-		CC5C3A5D1A69144000D89F9B /* portfolioapp.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A521A69144000D89F9B /* portfolioapp.py */; };
-		CC5C3A5E1A69144000D89F9B /* PortfolioAppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A531A69144000D89F9B /* PortfolioAppDelegate.py */; };
+		CC5C3A5D1A69144000D89F9B /* xierpathinapp.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A521A69144000D89F9B /* xierpathinapp.py */; };
+		CC5C3A5E1A69144000D89F9B /* XierpaThinAppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A531A69144000D89F9B /* XierpaThinAppDelegate.py */; };
 		CC5C3A5F1A69144000D89F9B /* setup.py in Resources */ = {isa = PBXBuildFile; fileRef = CC5C3A541A69144000D89F9B /* setup.py */; };
 /* End PBXBuildFile section */
 
@@ -30,8 +30,8 @@
 		CC5C3A4F1A69144000D89F9B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC5C3A501A69144000D89F9B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CC5C3A511A69144000D89F9B /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
-		CC5C3A521A69144000D89F9B /* portfolioapp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = portfolioapp.py; sourceTree = "<group>"; };
-		CC5C3A531A69144000D89F9B /* PortfolioAppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = PortfolioAppDelegate.py; sourceTree = "<group>"; };
+		CC5C3A521A69144000D89F9B /* xierpathinapp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = xierpathinapp.py; sourceTree = "<group>"; };
+		CC5C3A531A69144000D89F9B /* XierpaThinAppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = XierpaThinAppDelegate.py; sourceTree = "<group>"; };
 		CC5C3A541A69144000D89F9B /* setup.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = setup.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,7 +50,7 @@
 		CC47855E1A68416900C9877D = {
 			isa = PBXGroup;
 			children = (
-				CC47856B1A68422E00C9877D /* PortfolioApp */,
+				CC47856B1A68422E00C9877D /* XierpaThinApp */,
 				CC47856A1A68422E00C9877D /* Products */,
 				CC5C3A431A6913E800D89F9B /* libpython2.7.dylib */,
 			);
@@ -64,7 +64,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CC47856B1A68422E00C9877D /* PortfolioApp */ = {
+		CC47856B1A68422E00C9877D /* XierpaThinApp */ = {
 			isa = PBXGroup;
 			children = (
 				CC5C3A451A69144000D89F9B /* client.py */,
@@ -72,10 +72,11 @@
 				CC5C3A4F1A69144000D89F9B /* Info.plist */,
 				CC5C3A501A69144000D89F9B /* main.m */,
 				CC5C3A511A69144000D89F9B /* main.py */,
-				CC5C3A521A69144000D89F9B /* portfolioapp.py */,
-				CC5C3A531A69144000D89F9B /* PortfolioAppDelegate.py */,
+				CC5C3A521A69144000D89F9B /* xierpathinapp.py */,
+				CC5C3A531A69144000D89F9B /* XierpaThinAppDelegate.py */,
 				CC5C3A541A69144000D89F9B /* setup.py */,
 			);
+			name = XierpaThinApp;
 			path = PortfolioApp;
 			sourceTree = "<group>";
 		};
@@ -122,7 +123,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CC4785621A68416900C9877D /* Build configuration list for PBXProject "PortfolioApp" */;
+			buildConfigurationList = CC4785621A68416900C9877D /* Build configuration list for PBXProject "XierpaThin" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -150,8 +151,8 @@
 				CC5C3A571A69144000D89F9B /* InfoPlist.strings in Resources */,
 				CC5C3A5A1A69144000D89F9B /* Info.plist in Resources */,
 				CC5C3A561A69144000D89F9B /* Credits.rtf in Resources */,
-				CC5C3A5D1A69144000D89F9B /* portfolioapp.py in Resources */,
-				CC5C3A5E1A69144000D89F9B /* PortfolioAppDelegate.py in Resources */,
+				CC5C3A5D1A69144000D89F9B /* xierpathinapp.py in Resources */,
+				CC5C3A5E1A69144000D89F9B /* XierpaThinAppDelegate.py in Resources */,
 				CC5C3A5F1A69144000D89F9B /* setup.py in Resources */,
 				CC5C3A581A69144000D89F9B /* MainMenu.xib in Resources */,
 			);
@@ -319,7 +320,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CC4785621A68416900C9877D /* Build configuration list for PBXProject "PortfolioApp" */ = {
+		CC4785621A68416900C9877D /* Build configuration list for PBXProject "XierpaThin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CC4785631A68416900C9877D /* Debug */,

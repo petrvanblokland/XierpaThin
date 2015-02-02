@@ -19,7 +19,6 @@ from xierpathin.constants import Constants
 from xierpathin.toolbox.dating import DateTime
 from xierpathin.toolbox.parsers.c_json import cjson
 from xierpathin.builders.htmlbuilder import HtmlBuilder
-from xierpathin.descriptors.environment import Environment
 from xierpathin.toolbox.transformer import TX
 
 class BaseClient(object):
@@ -135,16 +134,6 @@ class BaseClient(object):
         """
         themeName = self.getThemeName(httprequest)
         theme = self.app.getTheme(themeName)
-        """
-        print '3233332323', httprequest
-        print '@@@@@@@@@@@@@@@', themeName
-        theme = self.getTheme(themeName)
-        print '@@@@@@@@@@@@@@@', themeName, theme
-        # Plug the current environment into the template for rendering. This allows the static components of the site
-        # template conditionally respond to settings of the current request.
-        # TODO: Make this work with sessions too, using the old E manager.
-        theme.e = Environment(request=httprequest)
-        """
         return theme
 
     def setMimeTypeEncoding(self, mimeType, request):
@@ -187,6 +176,10 @@ class BaseClient(object):
                     mime = self.C.MIMETYPE_JPG
                 elif imagePath.endswith('.gif'):
                     mime = self.C.MIMETYPE_GIF
+            else:
+                result = '<span style="color:red;background-color:yellow">CANNOT FIND IMAGE "%s"</span>' % imagePath
+                mime = self.C.MIMETYPE_HTML
+
         return result, mime
 
     def buildCss(self, site):
@@ -197,27 +190,19 @@ class BaseClient(object):
             css = f.read()
             f.close()
         else:
-            css = '/* CANNOT FIND CSS FILE \n%s\n*/ \nbody {background-color:yellow;}'
+            css = '/* CANNOT FIND CSS FILE \n%s\n*/ \nbody {background-color:yellow;}' % cssPath
         return css, self.C.MIMETYPE_CSS
 
-    def XXXbuildCss(self, site):
-        u"""Build the site to CSS."""
-        doIndent = self.getDoIndent() # Boolean flag if indenting should be in output.
-        builder = CssBuilder(e=site.e, doIndent=doIndent)
-        filePath = builder.getFilePath(site)
-        result = self.resolveByFile(site, filePath)
-        #if site.e.form[self.C.PARAM_DOCUMENTATION]: # /documentation
-        #    site.buildDocumentation(builder) # Build the live documentation page from the site
-        #    #builder.save(site, path=filePath) # Compile resulting Sass to Css  
-        #    #builder.save(site, path=filePath.replace('.css', '_doc.css')) # Compile resulting Sass to Css  
-        #    result = builder.css #getResult() 
-        if site.e.form[self.C.PARAM_FORCE] or site.e.form[self.C.PARAM_DOCUMENTATION] or result is None:
-            # Forced or no cached CSS or building documentation, 
-            # so try to build is and save it in the cache.
-            site.build(builder) # Build from entire site theme, not just from template. Result is stream in builder.
-            builder.save(site, path=filePath) # Compile resulting Sass to Css  
-            result = builder.getResult() # Get the resulting Sass.
-        return result, self.C.MIMETYPE_CSS
+    def buildJs(self, site, fileName):
+        u"""Answer the content of the Javascript file."""
+        jsPath = self.app.getJsPath(fileName)
+        if os.path.exists(jsPath):
+            f = open(jsPath)
+            js = f.read()
+            f.close()
+        else:
+            js = '/* CANNOT FIND JS FILE \n%s\n */\n' % jsPath
+        return js, self.C.MIMETYPE_JS
 
     def buildHtml(self, site):
         u"""Build the site for HTML."""
@@ -253,6 +238,8 @@ class BaseClient(object):
             # If there is a matching file in the site root/files folder, then answer this.
             elif path.endswith('.css'):
                 result, mimeType = self.buildCss(site)
+            elif path.endswith('.js'):
+                result, mimeType = self.buildJs(site, path.split('/')[-1])
             elif path.endswith('.jpg') or path.endswith('.png') or path.endswith('.gif'):
                 result, mimeType = self.buildImage(site)
             elif site.e.form[self.C.PARAM_AJAX] is not None:
@@ -280,7 +267,7 @@ class BaseClient(object):
         located in the file object @httprequest.content@. The data can be read by @
         httprequest.content.read()@.
         """
-        site = self.getSite(httprequest)  # Site is Theme instance
+        site = self.getSite(httprequest) # Site is Theme instance
         site.handlePost()
 
         if isinstance(httprequest.content, StringIO.OutputType):
@@ -335,7 +322,6 @@ class BaseClient(object):
 
     def renderError(self, e, t):
         head = self.renderErrorHead()
-        print t
         return """
         <html>%s<body>
         <div id="content">

@@ -8,12 +8,12 @@
 #
 # -----------------------------------------------------------------------------
 #
-#   article.py
+#   featured.py
 #
 from xierpathin.constants import Constants
 from xierpathin.components.component import Component
 
-class Article(Component):
+class Featured(Component):
 
     C = Constants
 
@@ -23,6 +23,7 @@ class Article(Component):
 
     def build(self, b):
         articleName = b.e.form['article'] or 'home'
+
         article = self.adapter.findActiveArticle(articleName)
         if b.e.form['edit']:
             self.adapter.editArticle(article.path)
@@ -30,17 +31,16 @@ class Article(Component):
         if article is not None:
             # Main article
             b.div(class_=self.getClassName())
-            b.div(class_=self.C.CLASS_ROW)
-            for chapter in article.chapters:
+            for chapter in article.chapters[1:]:
+                b.div(class_=self.C.CLASS_ROW)
                 b.text(chapter)
-                b.br()
+                b._div()
+            b._div()
+
+            # Summary of the article on the side
+            b.div(class_=self.getClassName()+'_side')
+            b.div(class_=self.C.CLASS_ROW)
+            b.text(article.chapters[0])
             b._div()
             b._div()
 
-            # Image if available
-            if article.images is not None:
-                for imageSrc in article.images.split(' '):
-                    # One of the images in the $images list in the article.
-                    b.div(class_=self.getClassName()+'_image')
-                    b.img(src=imageSrc)
-                    b._div()

@@ -17,11 +17,12 @@ class Page(Component):
 
     C = Constants
 
-    def __init__(self, name=None, title=None, components=None, fonts=None, cssPaths=None):
+    def __init__(self, name=None, title=None, components=None, fonts=None, cssPaths=None, jsPaths=None):
         Component.__init__(self, name, components)
         self.title = title
         self.fonts = fonts or []
         self.css = cssPaths or ['/css/style.css']
+        self.js = jsPaths or []
         self.style = None
 
     def build(self, b):

@@ -18,10 +18,12 @@ class Menu(Component):
     C = Constants
 
     def __init__(self, adapter):
+        self.name = self.__class__.__name__
         self.adapter = adapter
 
     def build(self, b):
         # Find active category. If not found, it is the first of the menu.
+        siteName = self.adapter.findSiteName(b.e.getFullPath())
         category = self.adapter.findActiveCategory(b.e.getFullPath())
 
         b.div(class_=self.getClassName())
@@ -29,7 +31,7 @@ class Menu(Component):
             class_ = 'menu'
             if name == category:
                 class_ += ' active'
-            b.a(class_=class_, href='/%s/index' % name)
+            b.a(class_=class_, href='/%s/%s/index.html' % (siteName, name))
             b.text(label)
             b._a()
             b.text(' ')

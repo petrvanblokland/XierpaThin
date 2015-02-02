@@ -256,10 +256,7 @@ class Constants(object):
 
     ATTR_MEDIA = 'media' # Special attribute in components to define (a list of) Media instances.
     # Template names (as parameter in url)
-    TEMPLATE_INDEX = 'index'
-    TEMPLATE_ARTICLE = 'article'
-    TEMPLATE_ARTICLES = 'articles'
-    TEMPLATE_DOCUMENTATION = 'documentation'
+    TEMPLATE_INDEX = 'home'
     TEMPLATE_DEFAULT = TEMPLATE_INDEX
 
     # Adapter

@@ -37,21 +37,3 @@ class Example(Theme):
             Page('home', title='Home', components=components),
             Page('contact', title='Contact', components=components),
         )
-        # Find the categories for the menu, that actually have content.
-        categories = adapter.getCategories()
-        for template in self.templates:
-            if template.name in categories:
-                menu.addCategory(template.name)
-
-    def make(self):
-        for template in self.templates:
-            for article in self.adapter.selectArticlesByCategory(template.name):
-                print 'Building template', template.name, article.name
-                self.adapter.select(article)
-                builder = HtmlBuilder(exportRoot=self.C.EXPORTROOT)
-                template.build(builder)
-
-if __name__ == '__main__':
-    example = Example()
-    example.make()
-

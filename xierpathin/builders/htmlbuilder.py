@@ -77,7 +77,7 @@ class HtmlBuilder(XmlTagBuilderPart, HtmlBuilderPart, Builder):
         self.buildMetaKeyWords(component)
         
         self.link(rel="apple-touch-icon-precomposed", href="img/appletouchicon.png")
-        self.buildJavascript(component)
+        self.buildJsLinks(component)
         self.buildFavIconLinks(component)
         self._head()
 
@@ -109,10 +109,6 @@ class HtmlBuilder(XmlTagBuilderPart, HtmlBuilderPart, Builder):
             template.build(self)
             self.saveAsFile(filePath, self.getResult()) # Directory already exists.
         return path
-   
-    def buildJavascript(self, component):
-        if component.style and component.style.js:
-            self.jsUrl(component.style.js)
 
     def buildFavIconLinks(self, component):
         u"""Build the favicon link, from the result of **component.adapter.getFavIcon()**.
@@ -159,6 +155,13 @@ class HtmlBuilder(XmlTagBuilderPart, HtmlBuilderPart, Builder):
             #if not cssUrl.startswith('http://'):
             #    cssUrl = '/' + urlName + cssUrl
             self.link(href=cssUrl, type="text/css", charset="UTF-8", rel="stylesheet", media="screen")
+
+    def buildJsLinks(self, component):
+        u"""
+        Create the Javascipt links inside the head.
+        """
+        for jsUrl in component.js: # Should always be defined, default is an empty list
+            self.jsUrl(jsUrl)
 
     def buildFontLinks(self, component):
         u"""Build the webfont links of they are defined in **components.fonts**.

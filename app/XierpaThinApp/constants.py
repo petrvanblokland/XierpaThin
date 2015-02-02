@@ -13,7 +13,7 @@
 class AppC(object):
 
     WINDOW_WIDTH = 700
-    WINDOW_HEIGHT = 400
+    WINDOW_HEIGHT = 500
 
     # ---------------------------------------------------------------------------------------------------------
     #    P A T H S
@@ -21,4 +21,5 @@ class AppC(object):
     PATH_SOURCES = '~/Desktop/Sites'  # Import the adapter sources here.
     PATH_EXPORT = '/Applications/MAMP/htdocs/' # Save exported site templates here
     PATH_STYLE = '/css/style.css'
+    PATH_JS = '/js/'
     PATH_SITE = '/py/site.py'

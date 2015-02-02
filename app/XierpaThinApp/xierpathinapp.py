@@ -12,12 +12,14 @@
 #
 import os
 import sys
+import shutil
 import importlib
 import webbrowser
-from AppKit import NSInformationalAlertStyle 
+#from AppKit import NSInformationalAlertStyle
 from constants import AppC
 from vanilla import Window, Button, CheckBox, EditText, TextBox, PopUpButton, List
-from vanilla.dialogs import message
+#from vanilla.dialogs import message
+from xierpathin.descriptors.environment import Environment
 from xierpathin.builders.htmlbuilder import HtmlBuilder
 from xierpathin.constants import Constants
 from xierpathin.toolbox.vanillas.listcell import SmallTextListCell
@@ -30,6 +32,7 @@ class XierpaThinApp(AppC):
 
     PORT = 8080
     URL = 'http://localhost:%d' % PORT
+    MAMP = 'http://localhost:8888'
 
     # Make sure that the PHP frameworks are downloaded from the latest version in git.
     #GIT_ROOT = '/'.join(TX.module2Path(constants).split('/')[:-2]) + '/../'
@@ -61,8 +64,6 @@ class XierpaThinApp(AppC):
 
         y = y + 28
         view.openSite = Button((10, y, 150, 20), 'Open site', callback=self.openSiteCallback, sizeStyle='small')
-        #y += bo
-        #self.w.saveSite = Button((10, y, 150, 20), 'Save HTML+CSS', callback=self.saveSiteCallback, sizeStyle='small')
         y += bo
         view.openCss = Button((10, y, 150, 20), 'View CSS', callback=self.openCssCallback, sizeStyle='small')
         y += bo
@@ -84,7 +85,7 @@ class XierpaThinApp(AppC):
         view.isOnline = CheckBox((180, yy+2*cbo, 150, 20), 'Online', sizeStyle='small', value=True, callback=self.isOnlineCallback)
 
         y += 6
-        view.pageList = List((10, y, AppC.WINDOW_WIDTH-20, -100), [],
+        view.pageList = List((10, y, AppC.WINDOW_WIDTH-20, -200), [],
             #selectionCallback=self.fontListCallback,
             doubleClickCallback=self.editPageCallback,
             drawFocusRing=False,
@@ -95,7 +96,7 @@ class XierpaThinApp(AppC):
             showColumnTitles=False,
             columnDescriptions=self.getPathListDescriptor(),
             rowHeight=16)
-        view.console = EditText((10, -90, -10, -10), sizeStyle='small')
+        view.console = EditText((10, -190, -10, -10), sizeStyle='small')
 
         # Path defaults
         y = yy+2
@@ -107,7 +108,11 @@ class XierpaThinApp(AppC):
         view.exportRoot = EditText((350, y-2, -10, 20), self.PATH_EXPORT, sizeStyle='small')
 
         y += bo
-        view.updateButton = Button((350, y, 70, 20), 'Update', sizeStyle='small', callback=self.updateCallback)
+        view.updateButton = Button((350, y, 85, 20), 'Update', sizeStyle='small', callback=self.updateCallback)
+        view.saveButton = Button((440, y, 85, 20), 'Save', sizeStyle='small', callback=self.saveCallback)
+        view.openSavedButton = Button((530, y, 85, 20), 'Open saved', sizeStyle='small', callback=self.openSavedCallback)
+        y += bo
+        view.openMampButton = Button((530, y, 85, 20), 'Open MAMP', sizeStyle='small', callback=self.openMampCallback)
 
         # Now we filled the root path, we can find the site folders
         self.w.selectedSite.setItems(self.getSiteLabels())
@@ -140,7 +145,14 @@ class XierpaThinApp(AppC):
         view = self.getView()
         root = self.getRootPath()
         selectedSiteName = self.getSelectedSiteName() # Get the current selection
-        return root + self.getSelectedSiteName() + self.PATH_STYLE
+        return root + selectedSiteName + self.PATH_STYLE
+
+    def getJsPath(self, fileName):
+        u"""Answer the Javascript path of the current selected site."""
+        view = self.getView()
+        root = self.getRootPath()
+        selectedSiteName = self.getSelectedSiteName() # Get the current selection
+        return root + selectedSiteName + self.PATH_JS + fileName
 
     def sourceRootCallback(self, sender):
         self.setSourceRoot()
@@ -152,7 +164,65 @@ class XierpaThinApp(AppC):
             root = os.path.expanduser(view.sourceRoot.get())
             if not root.endswith('/'):
                 root += '/'
-            site.adapter.setPath(root + self.getSelectedSiteName())
+            site.adapter.path = root + self.getSelectedSiteName()
+
+    def saveCallback(self, sender):
+        u"""Save the site to static page files and copy all images there."""
+        view = self.getView()
+        exportRoot = view.exportRoot.get()
+        if not os.path.exists(exportRoot):
+            print '[ERROR: Path "%s" does not exist.' % exportRoot
+            return
+        siteName = self.getSelectedSiteName()
+        exportRoot += siteName + '/'
+        #shutils.rmtree(exportRoot)
+        self.updateThemes()
+        self.update()
+        self.updateBuilderRootPaths()
+        site = self.getTheme()
+        for article in site.adapter.articles.values():
+            url = article.url
+            if url is None:
+                print article
+            else:
+                template = site.getTemplate(article.template)
+                e = Environment()
+                e.form['article'] = url
+                e['path'] = '/%s/%s/article-%s/index.html' % (siteName, article.categories[0], url)
+                builder = HtmlBuilder(e=e, doIndent=view.doIndent.get())
+                template.build(builder)
+                html = builder.getResult()
+                for category in article.categories:
+                    exportPath = exportRoot + category + '/article-' + url
+                    try:
+                        os.makedirs(exportPath)
+                    except OSError:
+                        pass
+                    # Write the html file.
+                    f = open(exportPath + '/index.html', 'wb')
+                    f.write(html)
+                    f.close()
+                    # Copy all source images to the target folder.
+                    sourcePath = site.adapter.path + '/'.join(article.path.split('/')[:-1])
+                    for imageName in os.listdir(sourcePath):
+                        if imageName.startswith('.'):
+                            continue
+                        if imageName.split('.')[-1].lower() in ('jpg', 'jpeg', 'png', 'gif'):
+                            imagePath = sourcePath + '/' + imageName
+                            shutil.copy(imagePath, exportPath)
+
+        #print 'Building template', template.name, article.name
+        #self.adapter.select(article)
+        #
+        #template.build(builder)
+
+    def openSavedCallback(self, sender):
+        view = self.getView()
+        exportRoot = view.exportRoot.get()
+        os.system('open %s' % exportRoot)
+
+    def openMampCallback(self, sender):
+        webbrowser.open(self.MAMP + '/' + self.getSelectedSiteName() + '/home/article-home/index.html')
 
     def updateCallback(self, sender):
         u"""Update the theme instances."""
@@ -169,7 +239,6 @@ class XierpaThinApp(AppC):
         for siteName in view.selectedSite.getItems():
             imported = importlib.import_module(siteName)
             self.themes[siteName] = imported.Site() # Make instance of site.
-        print self.themes
 
     def update(self):
         view = self.getView()
@@ -236,7 +305,8 @@ class XierpaThinApp(AppC):
         self.update() # Update the list of pages for the selected site.
 
     def openSiteCallback(self, sender):
-        self.openSiteInBrowser(self.URL)
+        url = self.URL + '/' + self.getSelectedSiteName()
+        self.openSiteInBrowser(url)
 
     def updateBuilderRootPaths(self):
         view = self.getView()
@@ -245,21 +315,13 @@ class XierpaThinApp(AppC):
         #SassBuilder.ROOT_PATH = rootPath
         #CssBuilder.ROOT_PATH = rootPath
         
-    def XXXsaveSiteCallback(self, sender):
-        self.updateBuilderRootPaths()
-        site = self.getSite()
-        site.make()
-        path = self.getExampleRootPath(site)
-        if path is not None:
-            webbrowser.open('file:' + path)
-        
     def openSiteInBrowser(self, url):
         self.updateBuilderRootPaths()
         view = self.getView()
         #if view.forceCss.get():
         #    url += '/' + self.C.PARAM_FORCE
         # Always open url with generic /index so css/style.css will inherit the /force
-        url += '/index'
+        url += '/index.html'
         webbrowser.open(url)
 
     def openCssCallback(self, sender):

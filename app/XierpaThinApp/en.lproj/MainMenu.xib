@@ -55,7 +55,7 @@
                             <menuItem isSeparatorItem="YES" id="149">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Quit XierpaThin" keyEquivalent="q" id="136" userLabel="Quit WayFinding">
+                            <menuItem title="Quit XierpaThin" keyEquivalent="q" id="136" userLabel="Quit XierpaThin">
                                 <connections>
                                     <action selector="terminate:" target="-1" id="369"/>
                                 </connections>
@@ -463,7 +463,7 @@
                 <menuItem title="Help" id="103" userLabel="Help">
                     <menu key="submenu" title="Help" id="106" userLabel="Help">
                         <items>
-                            <menuItem title="WayFinding Help" keyEquivalent="?" id="111" userLabel="WayFinding Help">
+                            <menuItem title="XierpaThin Help" keyEquivalent="?" id="111" userLabel="XierpaThin Help">
                                 <connections>
                                     <action selector="showHelp:" target="-1" id="360"/>
                                 </connections>

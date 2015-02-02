@@ -8,12 +8,12 @@
 #
 # -----------------------------------------------------------------------------
 #
-#   article.py
+#   thumbs.py
 #
 from xierpathin.constants import Constants
 from xierpathin.components.component import Component
 
-class Article(Component):
+class Thumbs(Component):
 
     C = Constants
 
@@ -23,18 +23,23 @@ class Article(Component):
 
     def build(self, b):
         articleName = b.e.form['article'] or 'home'
+
         article = self.adapter.findActiveArticle(articleName)
         if b.e.form['edit']:
             self.adapter.editArticle(article.path)
 
         if article is not None:
+            if 'title' in article:
+                # Title of the article.
+                b.div(class_=self.getClassName()+'_title')
+                b.text(article.title)
+                b._div()
+
             # Main article
             b.div(class_=self.getClassName())
-            b.div(class_=self.C.CLASS_ROW)
             for chapter in article.chapters:
                 b.text(chapter)
                 b.br()
-            b._div()
             b._div()
 
             # Image if available

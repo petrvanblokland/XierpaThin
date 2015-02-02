@@ -30,27 +30,28 @@ class Theme(Component):
         Default behavior is to do nothing."""
         pass
 
-    def getMatchingTemplate(self, builder):
+    def getMatchingTemplate(self, b):
         u"""
         Find the page template in self.components that has the best name match with currently available parameters in
         **self.e.form**. Unquote the url parameters and remove the spaces to create potential template names.
         Then match them against the available template components of **self**.
         """
-        urlNames = set()
-        for urlName in builder.getParamNames():
-            urlNames.add(urllib.unquote(urlName).replace(' ', ''))
-        for template in self.templates:
-            if template.name in urlNames:
-                return template
-
-        # Could not find a match, answer the default template.
-        # If no default component exists, then answer self.
-        # This happens if there is only one page in the site.
-        return self.getTemplate(self.C.TEMPLATE_DEFAULT) or self.getDefaultTemplate()
+        articleName = b.e.form['article'] or 'home'
+        article = self.adapter.findActiveArticle(articleName)
+        if article is None:
+            template = self.getDefaultTemplate()
+        else:
+            template = self.getTemplate(article.template)
+            if template is None:
+                # Could not find a match, answer the default template.
+                # If no default component exists, then answer self.
+                # This happens if there is only one page in the site.
+                template = self.getTemplate(self.C.TEMPLATE_DEFAULT) or self.getDefaultTemplate()
+        return template
 
     def getTemplate(self, name):
         for template in self.templates:
-            if template.name == name:
+            if template.name.strip() == name.strip():
                 return template
         return None
 
