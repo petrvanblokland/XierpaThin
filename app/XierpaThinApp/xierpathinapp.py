@@ -210,26 +210,27 @@ class XierpaThinApp(AppC):
                         if imageName.split('.')[-1].lower() in ('jpg', 'jpeg', 'png', 'gif'):
                             imagePath = sourcePath + '/' + imageName
                             shutil.copy(imagePath, exportPath)
-
-        #print 'Building template', template.name, article.name
-        #self.adapter.select(article)
-        #
-        #template.build(builder)
+                    # Copy the CSS
+                    # Create the index.html files on category level.
 
     def openSavedCallback(self, sender):
+        u"""Open the site folder of the MAMP server, as defined by the view.exportRoot path."""
         view = self.getView()
         exportRoot = view.exportRoot.get()
         os.system('open %s' % exportRoot)
 
     def openMampCallback(self, sender):
+        u"""Open the generated site on the home page from the MAMP server, assuming that it is running."""
         webbrowser.open(self.MAMP + '/' + self.getSelectedSiteName() + '/home/article-home/index.html')
 
     def updateCallback(self, sender):
-        u"""Update the theme instances."""
+        u"""Update the theme instances, read the articles from the adapter source for the current selected site."""
         self.updateThemes()
         self.update()
 
     def updateThemes(self):
+        u"""Update the self.themes cache of site instances. Unlink any existing root path.
+        Create a new site instance for every site in the current root path."""
         self.themes = {}
         view = self.getView()
         root = self.getRootPath()
