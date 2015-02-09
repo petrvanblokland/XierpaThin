@@ -11,6 +11,8 @@
 #    theme.py
 #
 import urllib
+from vanilla.dialogs import message
+
 from component import Component
 from page import Page
 from text import Text
@@ -50,6 +52,8 @@ class Theme(Component):
         return template
 
     def getTemplate(self, name):
+        if name is None:
+            name = self.C.TEMPLATE_DEFAULT
         for template in self.templates:
             if template.name.strip() == name.strip():
                 return template

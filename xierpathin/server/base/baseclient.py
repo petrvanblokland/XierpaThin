@@ -207,7 +207,7 @@ class BaseClient(object):
     def buildHtml(self, site):
         u"""Build the site for HTML."""
         doIndent = self.getDoIndent() # Boolean flag if indenting should be in output.
-        site.reset() # Allow the theme to reset values for every page request, depending on url parameters. 
+        site.reset() # Allow the theme to reset values for every page request, depending on url parameters.
         builder = HtmlBuilder(e=site.e, doIndent=doIndent)
         filePath = builder.getFilePath(site)
         result = self.resolveByFile(site, filePath)

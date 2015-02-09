@@ -72,7 +72,7 @@ class HtmlBuilder(XmlTagBuilderPart, HtmlBuilderPart, Builder):
         self.buildFontLinks(component)
         self.buildCssLinks(component)
         self.ieExceptions()
-        # Build required search engine info, if available in self.adapter
+        # Build required search engine info, if available in self.e.adapter
         self.buildMetaDescription(component)
         self.buildMetaKeyWords(component)
         
@@ -111,32 +111,26 @@ class HtmlBuilder(XmlTagBuilderPart, HtmlBuilderPart, Builder):
         return path
 
     def buildFavIconLinks(self, component):
-        u"""Build the favicon link, from the result of **component.adapter.getFavIcon()**.
+        u"""Build the favicon link, from the result of **self.e.adapter.getFavIcon()**.
         If the result is **None** then ignore."""
-        if component.adapter is not None:
-            data = component.adapter.getFavIcon()
+        if self.e.adapter is not None:
+            data = self.e.adapter.getFavIcon()
             if data.url is not None:
                 self.output("<link type='image/x-icon' rel='icon' href='%s'></link>" % data.url)
 
     def buildMetaDescription(self, component):
         u"""Build the meta tag with description of the site for search engines, if available in the adapter."""
-        if component.adapter is not None:
-            data = component.adapter.getDescription()
+        if self.e.adapter is not None:
+            data = self.e.adapter.getDescription()
             if data.text is not None:
                 self.meta(name=self.C.META_DESCRIPTION, content=data.text)
             
     def buildMetaKeyWords(self, component):
         u"""Build the meta tag with keywords of the site for search engines, if available in the adapter."""
-        if component.adapter is not None:
-            data = component.adapter.getKeyWords()
+        if self.e.adapter is not None:
+            data = self.e.adapter.getKeyWords()
             if data.text is not None:
                 self.meta(name=self.C.META_KEYWORDS, content=data.text)
-            
-    def XXXcssUrl(self, css):
-        if not isinstance(css, (list, tuple)):
-            css = [css]
-        for url in css:
-            self.link(href=url, rel="stylesheet", type="text/css")
 
     def jsUrl(self, js):
         u"""Alternative to jQuery: http://vanilla-js.com"""
@@ -154,6 +148,8 @@ class HtmlBuilder(XmlTagBuilderPart, HtmlBuilderPart, Builder):
         for cssUrl in component.css: # Should always be defined, default is an empty list
             #if not cssUrl.startswith('http://'):
             #    cssUrl = '/' + urlName + cssUrl
+            #cssUrl = '/%s/%s' % (self.e.adapter.findSiteName(self.e.getFullPath()), cssUrl)
+            cssUrl = '/%s%s' % ('jasper', cssUrl)
             self.link(href=cssUrl, type="text/css", charset="UTF-8", rel="stylesheet", media="screen")
 
     def buildJsLinks(self, component):

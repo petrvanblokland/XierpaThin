@@ -18,7 +18,7 @@ import webbrowser
 #from AppKit import NSInformationalAlertStyle
 from constants import AppC
 from vanilla import Window, Button, CheckBox, EditText, TextBox, PopUpButton, List
-#from vanilla.dialogs import message
+from vanilla.dialogs import message
 from xierpathin.descriptors.environment import Environment
 from xierpathin.builders.htmlbuilder import HtmlBuilder
 from xierpathin.constants import Constants
@@ -128,7 +128,12 @@ class XierpaThinApp(AppC):
 
     def getSelectedSiteName(self):
         view = self.getView()
-        return view.selectedSite.getItems()[view.selectedSite.get()]
+        sites = view.selectedSite.getItems()
+        if sites:
+            return sites[view.selectedSite.get()]
+        # Else we cannot find any sites, open an error window
+        message(messageText='Cannot find a valid website.', informativeText=u'Create a “Sites” folder on your desktop with the proper content, and make sure that there is at least one website folder inside.\n\nThe XierpaThin application will close now.')
+        sys.exit(0)
 
     def getTheme(self, themeName=None):
         u"""Called by the server client to get the theme instance that relates to the name.
@@ -180,6 +185,7 @@ class XierpaThinApp(AppC):
         self.update()
         self.updateBuilderRootPaths()
         site = self.getTheme()
+        categoryPaths = set()
         for article in site.adapter.articles.values():
             url = article.url
             if url is None:
@@ -189,11 +195,13 @@ class XierpaThinApp(AppC):
                 e = Environment()
                 e.form['article'] = url
                 e['path'] = '/%s/%s/article-%s/index.html' % (siteName, article.categories[0], url)
+                e.adapter = site.adapter
                 builder = HtmlBuilder(e=e, doIndent=view.doIndent.get())
                 template.build(builder)
                 html = builder.getResult()
                 for category in article.categories:
                     exportPath = exportRoot + category + '/article-' + url
+                    categoryPaths.add((exportRoot, category)) # Save to know where to save the chapter index.html file.
                     try:
                         os.makedirs(exportPath)
                     except OSError:
@@ -210,8 +218,27 @@ class XierpaThinApp(AppC):
                         if imageName.split('.')[-1].lower() in ('jpg', 'jpeg', 'png', 'gif'):
                             imagePath = sourcePath + '/' + imageName
                             shutil.copy(imagePath, exportPath)
-                    # Copy the CSS
-                    # Create the index.html files on category level.
+        # Copy the CSS
+        # TODO: Fix "jasper" prefix to come from the name of the selected site
+        cssPath = exportRoot + '/'.join(self.PATH_STYLE.split('/')[:-1])[1:]
+        try:
+            os.makedirs(cssPath)
+        except OSError: # In case it already exists: ignore.
+            pass
+        shutil.copy(site.adapter.path + self.PATH_STYLE, cssPath)
+        # Create the index.html files on category level.
+        for categoryPath, category in categoryPaths:
+            indexPath = categoryPath + category + '/index.html'
+            template = site.getTemplate('home')
+            e = Environment()
+            e['path'] = '/%s/%s/index.html' % (siteName, category)
+            e.adapter = site.adapter
+            builder = HtmlBuilder(e=e, doIndent=view.doIndent.get())
+            template.build(builder)
+            html = builder.getResult()
+            f = open(indexPath, 'wb')
+            f.write(html)
+            f.close()
 
     def openSavedCallback(self, sender):
         u"""Open the site folder of the MAMP server, as defined by the view.exportRoot path."""

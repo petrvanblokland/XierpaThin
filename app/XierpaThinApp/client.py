@@ -16,6 +16,7 @@ class Client(TwistedClient):
     def getSite(self, httprequest):
         site = self.app.getTheme()
         site.e = Environment(request=httprequest)
+        site.e.adapter = site.adapter # Make adapter available for builders.
 
         # Callback to application, to allow showing request, handle form stuff, etc.
         self.app.handleRequest(httprequest, site)
