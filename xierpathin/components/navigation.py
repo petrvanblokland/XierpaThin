@@ -24,8 +24,9 @@ class Navigation(Component):
         # Find the active category
         siteName = self.adapter.findSiteName(b.e.getFullPath())
         category = self.adapter.findActiveCategory(b.e.getFullPath())
-        articleName = b.e.form['article'] or 'index'
+        articleName = b.e.form.get('article', 'index')
         activeArticle = self.adapter.findActiveArticle(articleName)
+        #print 'aaaa', siteName, articleName, category, activeArticle
 
         b.div(class_=self.getClassName())
         if not category in self.adapter.categories:

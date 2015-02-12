@@ -265,8 +265,13 @@ class XierpaThinApp(AppC):
             del sys.path[sys.path.index(root)]
         sys.path.append(root)
         for siteName in view.selectedSite.getItems():
-            imported = importlib.import_module(siteName)
-            self.themes[siteName] = imported.Site() # Make instance of site.
+            try:
+                imported = importlib.import_module(siteName)
+                self.themes[siteName] = imported.Site() # Make instance of site.
+            except ImportError:
+                # Else we cannot find any sites, open an error window
+                message(messageText='Invalid data found for website "%s".' % siteName, informativeText=u'Either remove the website folder from "Sites" or fix it. Possibly the (empty) "__init__.py" files are missing?\n\nThe XierpaThin application will close now.')
+                sys.exit(0)
 
     def update(self):
         view = self.getView()

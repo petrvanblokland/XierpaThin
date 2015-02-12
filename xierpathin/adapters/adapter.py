@@ -26,7 +26,8 @@ class Adapter(object):
     # Chapter tag, split chapters between this code.
     CHAPTER_TAG = '=C='
     # Valid$ field names
-    FIELDNAMES = ('title', 'images', 'poster', 'summary', 'author', 'topic', 'categories', 'menu', 'template')
+    FIELDNAMES = ('title', 'images', 'poster', 'summary', 'author', 'topic', 'categories',
+        'menu', 'template', 'transfer')
     REQUIREDFIELDS = ('title', 'category')
     # Match line pattern "$fielName value"
     FIELDVALUE = re.compile('\$([\w]*) (.*)')
@@ -61,9 +62,8 @@ class Adapter(object):
                     self._findArticles(filePath, articles)
                 elif fileName == 'index.txt':
                     article = self._readArticle(filePath)
-                    articles[article.url] = article
+                    articles[article.url or ''] = article # If article.url not defined, it must be root
                     # Do images here too.
-        #[ADict(dict(url='home.html', name='Home')), ADict(dict(url='toen.html', name='Toen'))]
         # Answer list of articles.
         return articles
 
@@ -91,9 +91,17 @@ class Adapter(object):
         return ADict(dict(url=self.C.URL_FAVICON))
 
     def findActiveArticle(self, url):
+        u"""Try to find the article, defined by the url. If no direct match can be found,
+        (e.g. because there is no article id parameter in the url), then try to get the
+        closest match. If all fails, answer None."""
         if url in self.articles:
             return self.articles[url]
-        return None
+        # If not found, answer the root article, so the page can use the transfer mode there.
+        # The Root page/article must have key ''. Otherwise answer None.
+        return self.getRootArticle()
+
+    def getRootArticle(self):
+        return self.articles.get('')
 
     def findSiteName(self, path):
         if path.startswith('/'):

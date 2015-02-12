@@ -69,7 +69,11 @@ class HtmlBuilder(XmlTagBuilderPart, HtmlBuilderPart, Builder):
         self.ieExceptions()
         # self.supportMediaQueries() # Very slow, getting this from Google?
         self.setViewPort()
+        # If there is a direct transfer of this page set, define is in the head.
+        self.buildMetaTransfer()
+        # If there is component.fonts (list of url's) defined, then add the links in the head.
         self.buildFontLinks(component)
+        # If there is a component.js (list of url's) defined, then add the links in the head.
         self.buildCssLinks(component)
         self.ieExceptions()
         # Build required search engine info, if available in self.e.adapter
@@ -149,12 +153,12 @@ class HtmlBuilder(XmlTagBuilderPart, HtmlBuilderPart, Builder):
             #if not cssUrl.startswith('http://'):
             #    cssUrl = '/' + urlName + cssUrl
             #cssUrl = '/%s/%s' % (self.e.adapter.findSiteName(self.e.getFullPath()), cssUrl)
-            cssUrl = '/%s%s' % ('jasper', cssUrl)
+            #cssUrl = '/%s%s' % ('jasper', cssUrl)
             self.link(href=cssUrl, type="text/css", charset="UTF-8", rel="stylesheet", media="screen")
 
     def buildJsLinks(self, component):
         u"""
-        Create the Javascipt links inside the head.
+        Create the Javascript links inside the head.
         """
         for jsUrl in component.js: # Should always be defined, default is an empty list
             self.jsUrl(jsUrl)
@@ -165,6 +169,16 @@ class HtmlBuilder(XmlTagBuilderPart, HtmlBuilderPart, Builder):
         if self._useOnline:
             for fontUrl in component.fonts: # Should always be defined, default is an empty list
                 self.link(href=fontUrl, type="text/css", charset="UTF-8", rel="stylesheet", media="screen")
+
+    def buildMetaTransfer(self):
+        u"""If the adapter answers a transfer url (and not None), then build the transfer meta in the head."""
+        articleName = self.e.form['article'] or 'home'
+        article = self.e.adapter.findActiveArticle(articleName)
+        if article.transfer is not None:
+            self.meta(httpequiv="refresh", content="20; url=%s" % article.transfer)
+            self.script()
+            self.text("""setTimeout("window.location='%s';" ,20);""" % article.transfer)
+            self._script()
 
     def isOnline(self):
         return self._useOnline
